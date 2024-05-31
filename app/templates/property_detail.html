@@ -9,6 +9,13 @@
   <form action="{{ url_for('routes.book_property', property_id=property.id) }}" method="post">
     <button type="submit" class="btn btn-success">Book Property</button>
   </form>
+  <form action="{{ url_for('routes.pay', property_id=property.id) }}" method="post">
+    <div class="form-group">
+      <label for="phone_number">Phone Number</label>
+      <input type="text" name="phone_number" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-success">Pay with MPESA</button>
+  </form>
   {% else %}
   <a href="{{ url_for('routes.login') }}" class="btn btn-primary">Login to Book</a>
   {% endif %}
