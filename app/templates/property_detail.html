@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>{{ property.title }}</h1>
+  <p>{{ property.description }}</p>
+  <p>Price: KES {{ property.price }}</p>
+  <p>Location: {{ property.location }}</p>
+  <p>Date Listed: {{ property.date_listed }}</p>
+  {% if current_user.is_authenticated %}
+  <form action="{{ url_for('routes.book_property', property_id=property.id) }}" method="post">
+    <button type="submit" class="btn btn-success">Book Property</button>
+  </form>
+  {% else %}
+  <a href="{{ url_for('routes.login') }}" class="btn btn-primary">Login to Book</a>
+  {% endif %}
+{% endblock %}
