@@ -75,3 +75,9 @@ def book_property(property_id):
     db.session.commit()
     flash('Property booked successfully!')
     return redirect(url_for('property_detail', property_id=property.id))
+
+@bp.route('/mpesa/callback', methods=['POST'])
+def mpesa_callback():
+    mpesa_response = request.get_json()
+    # Process the callback data as needed
+    return jsonify({"ResultCode": 0, "ResultDesc": "Accepted"})
