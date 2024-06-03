@@ -1,8 +1,39 @@
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import PropertyList from './components/PropertyList';
+import BlogList from './components/BlogList';
+import ContactAdmin from './components/ContactAdmin';
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const dotenv = require('dotenv');
+
+
+const App = () => {
+    return (
+        <Router>
+            <div>
+                <nav>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/properties">Properties</a></li>
+                        <li><a href="/blogs">Blog</a></li>
+                        <li><a href="/contact">Contact Admin</a></li>
+                    </ul>
+                </nav>
+                <Switch>
+                    <Route path="/properties" component={PropertyList} />
+                    <Route path="/blogs" component={BlogList} />
+                    <Route path="/contact" component={ContactAdmin} />
+                </Switch>
+            </div>
+        </Router>
+    );
+};
+
+export default App;
+
 
 dotenv.config();
 
