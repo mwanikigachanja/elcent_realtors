@@ -15,9 +15,15 @@ require('./config/db');
 
 // Import routes
 const paymentRoutes = require('./routes/paymentRoutes');
+const propertyRoutes = require('./routes/propertyRoutes');
+const blogRoutes = require('./routes/blogRoutes');
+const chatRoutes = require('./routes/chatRoutes');
 
 // Use routes
 app.use('/api/payments', paymentRoutes);
+app.use('/api/properties', propertyRoutes);
+app.use('/api/blogs', blogRoutes);
+app.use('/api/chats', chatRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
