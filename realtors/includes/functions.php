@@ -18,6 +18,64 @@ function db_connect() {
     return $conn;
 }
 
+// Activate admin account
+function activate_admin($token) {
+    $conn = db_connect();
+
+    $token = $conn->real_escape_string($token);
+    $query = "UPDATE admins SET is_verified = 1 WHERE token = '$token'";
+
+    if ($conn->query($query) === TRUE) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+// Sending email function
+function send_email($to, $subject, $message) {
+    $headers = "From: noreply@elcentrealtors.co.ke";
+    mail($to, $subject, $message, $headers);
+}
+
+// Check if admin is verified
+function is_admin_verified($admin_id) {
+    $conn = db_connect();
+
+    $query = "SELECT is_verified FROM admins WHERE id = '$admin_id'";
+    $result = $conn->query($query);
+    $admin = $result->fetch_assoc();
+
+    return $admin['is_verified'];
+}
+
+// User authentication with verification check
+function authenticate_admin($email, $password) {
+    $conn = db_connect();
+
+    $email = $conn->real_escape_string($email);
+    $query = "SELECT * FROM admins WHERE email = '$email'";
+    $result = $conn->query($query);
+
+    if ($result->num_rows > 0) {
+        $admin = $result->fetch_assoc();
+        if (password_verify($password, $admin['password']) && $admin['is_verified']) {
+            return $admin;
+        }
+    }
+
+    return false;
+}
+
+// Redirect if not logged in or not verified
+function redirect_if_not_logged_in_or_verified() {
+    if (!is_logged_in() || !is_admin_verified($_SESSION['user_id'])) {
+        header("Location: login.php");
+        exit;
+    }
+}
+
+
 // User authentication
 function authenticate_user($email, $password) {
     $conn = db_connect();

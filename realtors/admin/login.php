@@ -2,19 +2,19 @@
 include('../includes/db.php');
 include('../includes/session.php');
 
+// Update login.php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $conn->real_escape_string($_POST['username']);
-    $password = $conn->real_escape_string($_POST['password']);
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
-    $query = "SELECT * FROM admin WHERE username = '$username'";
-    $result = $conn->query($query);
-    $admin = $result->fetch_assoc();
-
-    if ($admin && password_verify($password, $admin['password'])) {
-        $_SESSION['admin'] = $admin['username'];
-        header('Location: index.php');
+    $admin = authenticate_admin($email, $password);
+    if ($admin) {
+        session_start();
+        $_SESSION['user_id'] = $admin['id'];
+        $_SESSION['username'] = $admin['username'];
+        header("Location: index.php");
     } else {
-        echo "Invalid username or password";
+        echo "Invalid email, password, or account not activated.";
     }
 }
 ?>
