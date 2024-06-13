@@ -5,22 +5,17 @@ include('includes/db.php');
 include('includes/functions.php');
 
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $property_id = $conn->real_escape_string($_POST['property_id']);
+if (isset($_GET['property_id'])) {
+    $property_id = $_GET['property_id'];
     $user_id = $_SESSION['user_id'];
 
-    $query = "INSERT INTO reservations (user_id, property_id) VALUES ('$user_id', '$property_id')";
-    if ($conn->query($query) === TRUE) {
-        // Send confirmation email
-        $user_result = $conn->query("SELECT email FROM users WHERE id = '$user_id'");
-        $user = $user_result->fetch_assoc();
-        $email = $user['email'];
-        $subject = "Property Reservation Confirmation";
-        $message = "Thank you for reserving a property with Elcent Realtors. Your reservation is being processed.";
-        mail($email, $subject, $message);
-        echo "Property reserved successfully. A confirmation email has been sent to $email.";
+    if (add_reservation($user_id, $property_id)) {
+        $user_email = $_SESSION['user_email'];
+        send_email($user_email, "Reservation Confirmation", "You have successfully reserved the property with ID $property_id.");
+        echo "Property reserved successfully";
     } else {
-        echo "Error: " . $query . "<br>" . $conn->error;
+        echo "Error reserving property";
     }
 }
+
 ?>
