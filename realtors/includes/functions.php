@@ -2,7 +2,7 @@
 
 // Database connection
 function db_connect() {
-    $servername = "102.218.215.29";
+    $servername = "elcentrealtors.co.ke";
     $username = "elcentre_root";
     $password = "PE{Tgr{qI=Lm";
     $dbname = "elcentre_main_app";
