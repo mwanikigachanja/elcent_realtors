@@ -2,6 +2,8 @@
 include('includes/session.php');
 redirectIfNotLoggedIn();
 include('includes/db.php');
+include('includes/functions.php');
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $property_id = $conn->real_escape_string($_POST['property_id']);

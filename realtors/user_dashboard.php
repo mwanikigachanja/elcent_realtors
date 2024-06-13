@@ -2,6 +2,8 @@
 include('includes/session.php');
 redirectIfNotLoggedIn();
 include('includes/db.php');
+include('includes/functions.php');
+
 
 $user_id = $_SESSION['user_id'];
 $reservations = $conn->query("SELECT r.*, p.title FROM reservations r JOIN properties p ON r.property_id = p.id WHERE r.user_id = '$user_id'");

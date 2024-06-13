@@ -1,4 +1,4 @@
-<?php include('includes/header.php'); ?>
+<?php include('includes/header.php'); include('includes/functions.php'); ?>
 
 <!-- Hero Section -->
 <section class="hero-section py-5">

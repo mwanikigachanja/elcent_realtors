@@ -1,4 +1,4 @@
-<?php include('includes/header.php'); ?>
+<?php include('includes/header.php'); include('includes/functions.php'); ?>
 
 <section class="contact-section py-5">
     <div class="container">
