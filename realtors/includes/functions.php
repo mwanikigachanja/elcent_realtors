@@ -107,13 +107,6 @@ function redirect_if_not_logged_in() {
         exit;
     }
 }
-
-// Send email
-function send_email($to, $subject, $message) {
-    $headers = "From: noreply@elcentrealtors.co.ke";
-    mail($to, $subject, $message, $headers);
-}
-
 // Get user reservations
 function get_user_reservations($user_id) {
     $conn = db_connect();
