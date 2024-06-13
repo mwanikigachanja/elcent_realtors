@@ -1,6 +1,6 @@
-CREATE DATABASE elcent_realtors;
+CREATE DATABASE elcentre_main_app;
 
-USE elcent_realtors;
+USE elcentre_main_app;
 
 CREATE TABLE properties (
     id INT AUTO_INCREMENT PRIMARY KEY,
