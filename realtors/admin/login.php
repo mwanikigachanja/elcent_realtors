@@ -1,49 +1,38 @@
 <?php
-include('../includes/db.php');
-include('../includes/session.php');
-include('../includes/functions.php');
+session_start();
+include_once '../db_connect.php';
+include_once '../includes/functions.php';
 
-// Update login.php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $admin = authenticate_admin($email, $password);
-    if ($admin) {
-        session_start();
-        $_SESSION['user_id'] = $admin['id'];
-        $_SESSION['username'] = $admin['username'];
-        header("Location: index.php");
+    // Check if email exists and fetch admin data
+    $stmt = $mysqli->prepare("SELECT id, password, is_active FROM admin WHERE email = ?");
+    $stmt->bind_param('s', $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $admin = $result->fetch_assoc();
+
+    if ($admin && password_verify($password, $admin['password'])) {
+        if ($admin['is_active'] == 1) {
+            // Set session variables
+            $_SESSION['admin_id'] = $admin['id'];
+            $_SESSION['logged_in'] = true;
+            header('Location: dashboard.php');
+            exit();
+        } else {
+            echo "Your account is not activated.";
+        }
     } else {
-        echo "Invalid email, password, or account not activated.";
+        echo "Invalid email or password.";
     }
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
-    <div class="container mt-5">
-        <h2 class="text-center">Admin Login</h2>
-        <form action="login.php" method="POST">
-            <div class="form-group">
-                <label for="username">Email</label>
-                <input type="text" class="form-control" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Login</button>
-            Not registered? <a href="register_admin.php">Register here</a>
-        </form>
-    </div>
-</body>
-</html>
+<!-- HTML Form for login -->
+<form method="post" action="login.php">
+    <input type="email" name="email" required placeholder="Email">
+    <input type="password" name="password" required placeholder="Password">
+    <button type="submit">Login</button>
+</form>
