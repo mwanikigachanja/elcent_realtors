@@ -1,5 +1,5 @@
 <?php
-include('includes/functions.php');
+include('../includes/functions.php');
 
 if (isset($_GET['token'])) {
     $token = htmlspecialchars($_GET['token']);
