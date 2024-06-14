@@ -1,7 +1,7 @@
 <?php
 include('../includes/db.php');
 include('../includes/session.php');
-include('includes/functions.php');
+include('../includes/functions.php');
 
 // Update login.php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

@@ -1,5 +1,5 @@
 <?php
-include('includes/functions.php');
+include('../includes/functions.php');
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
