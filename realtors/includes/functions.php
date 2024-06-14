@@ -32,7 +32,7 @@ function register_admin($username, $email, $password) {
     if ($conn->query($query) === TRUE) {
         $subject = "Activate your admin account";
         $message = "Please click the link below to activate your account:\n\n";
-        $message .= "http://elcentrealtors.co.ke/admin/activate_admin.php?token=$token";
+        $message .= "http://elcentrealtors.co.ke/landing/admin/activate_admin.php?token=$token";
         send_email($email, $subject, $message);
         return true;
     } else {
