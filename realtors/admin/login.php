@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once '../db_connect.php';
+include_once '../includes/db_connect.php';
 include_once '../includes/functions.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password'];
 
     // Check if email exists and fetch admin data
-    $stmt = $mysqli->prepare("SELECT id, password, is_active FROM admin WHERE email = ?");
+    $stmt = $mysqli->prepare("SELECT id, password, is_active FROM admins WHERE email = ?");
     $stmt->bind_param('s', $email);
     $stmt->execute();
     $result = $stmt->get_result();
