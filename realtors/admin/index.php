@@ -6,7 +6,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 }
 
 // Include database connection
-include_once '../includes/db_connect.php';
+include_once '../includes/db.php';
 ?>
 
 <!DOCTYPE html>
