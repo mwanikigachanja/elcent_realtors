@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Set session variables
             $_SESSION['admin_id'] = $admin['id'];
             $_SESSION['logged_in'] = true;
-            header('Location: dashboard.php');
+            header('Location: index.php');
             exit();
         } else {
             echo "Your account is not activated.";
