@@ -1,5 +1,5 @@
 <?php
-$servername = "elcentrealtors.co.ke";
+$servername = "102.218.215.29";
 $username = "elcentre_root";
 $password = "PE{Tgr{qI=Lm";
 $dbname = "elcentre_main_app";

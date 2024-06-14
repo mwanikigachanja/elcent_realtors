@@ -2,7 +2,7 @@
 
 // Database connection
 function db_connect() {
-    $servername = "elcentrealtors.co.ke";
+    $servername = "102.218.215.29";
     $username = "elcentre_root";
     $password = "PE{Tgr{qI=Lm";
     $dbname = "elcentre_main_app";
@@ -17,6 +17,28 @@ function db_connect() {
 
     return $conn;
 }
+
+// Register admin
+function register_admin($username, $email, $password) {
+    $conn = db_connect();
+
+    $username = $conn->real_escape_string($username);
+    $email = $conn->real_escape_string($email);
+    $token = bin2hex(random_bytes(50));
+
+    $query = "INSERT INTO admins (username, email, password, token, is_verified) VALUES ('$username', '$email', '$password', '$token', 0)";
+    
+    if ($conn->query($query) === TRUE) {
+        $subject = "Activate your admin account";
+        $message = "Please click the link below to activate your account:\n\n";
+        $message .= "http://yourdomain.com/activate_admin.php?token=$token";
+        send_email($email, $subject, $message);
+        return true;
+    } else {
+        return false;
+    }
+}
+
 
 // Activate admin account
 function activate_admin($token) {
