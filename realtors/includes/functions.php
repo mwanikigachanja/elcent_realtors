@@ -26,7 +26,8 @@ function register_admin($username, $email, $password) {
     $email = $conn->real_escape_string($email);
     $token = bin2hex(random_bytes(50));
 
-    $query = "INSERT INTO admins (username, email, password, token, is_verified) VALUES ('$username', '$email', '$password', '$token', 0)";
+    $query = "INSERT INTO admins (username, email, password, token, is_verified) VALUES 
+    ('$username', '$email', '$password', '$token', 0)";
     
     if ($conn->query($query) === TRUE) {
         $subject = "Activate your admin account";
