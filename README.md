@@ -6,3 +6,5 @@ Clear app reference with landing page.
 
 
 To Readjust to client taste.
+
+Admin Panel Added. DB Linked successfully. 
