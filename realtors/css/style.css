@@ -1,0 +1,37 @@
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+.header, .footer {
+    background-color: #f8f9fa;
+    padding: 10px 0;
+}
+
+.hero-section {
+    background: url('../images/hero.jpg') no-repeat center center;
+    background-size: cover;
+    color: white;
+    text-align: center;
+    padding: 100px 0;
+}
+
+.hero-section h1 {
+    font-size: 3rem;
+}
+
+.hero-section p {
+    font-size: 1.5rem;
+}
+
+.featured-properties, .properties, .property-details, .contact-section {
+    padding: 50px 0;
+}
+
+.featured-properties h2, .properties h2, .property-details h2, .contact-section h2 {
+    margin-bottom: 30px;
+}
+
+.card img {
+    height: 200px;
+    object-fit: cover;
+}
