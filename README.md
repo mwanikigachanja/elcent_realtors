@@ -8,4 +8,4 @@ To Readjust to client taste.
 
 Admin Panel Added. DB Linked successfully. 
 
-Confirm it  
+Confirm it works as planned. 
