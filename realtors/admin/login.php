@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password'];
 
     // Check if email exists and fetch admin data
-    $stmt = $mysqli->prepare("SELECT id, password, is_active FROM admins WHERE email = ?");
+    $stmt = $mysqli->prepare("SELECT id, password, is_verified FROM admins WHERE email = ?");
     $stmt->bind_param('s', $email);
     $stmt->execute();
     $result = $stmt->get_result();
