@@ -15,6 +15,8 @@ include_once '../includes/db.php';
     <meta charset="UTF-8">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+
 </head>
 <body>
     <div class="container-fluid">
