@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (password_verify($password, $row['password'])) {
                 if ($row['is_verified'] == 1) {
                     $_SESSION['admin_id'] = $row['id'];
-                    $_SESSION['admin_name'] = $row['name'];
+                    $_SESSION['admin_name'] = $row['email'];
                     header("Location: index.php");
                     exit();
                 } else {
