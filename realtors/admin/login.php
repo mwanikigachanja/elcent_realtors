@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login</title>
-    <link rel="stylesheet" href="path/to/your/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container">
@@ -63,7 +63,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="pwd">Password:</label>
                 <input type="password" class="form-control" id="pwd" name="password" required>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button><br>
+            <a href="forgot_password.php">Forgot Password?</a>
+            <a href="register_admin.php">Register</a>
         </form>
     </div>
 
