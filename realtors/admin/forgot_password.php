@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bind_param("ss", $token, $email);
             if ($stmt->execute()) {
                 // Send the email
-                $reset_link = "https://yourdomain.com/reset_password.php?token=" . $token;
+                $reset_link = "https://elcentrealtors.co.ke/landing/admin/reset_password.php?token=" . $token;
                 $subject = "Password Reset Request";
                 $message = "Click on the following link to reset your password: " . $reset_link;
                 $headers = "From: no-reply@yourdomain.com\r\n";
