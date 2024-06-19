@@ -1,9 +1,10 @@
 <?php
-session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 include('../includes/db.php');
+include('../includes/functions.php');
+include('../includes/session.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST['email']);
@@ -22,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (password_verify($password, $row['password'])) {
                 if ($row['is_verified'] == 1) {
                     $_SESSION['admin_id'] = $row['id'];
-                    $_SESSION['admin_name'] = $row['email'];
+                    $_SESSION['admin_name'] = $row['username'];
                     header("Location: index.php");
                     exit();
                 } else {
