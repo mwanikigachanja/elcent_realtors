@@ -1036,12 +1036,12 @@ button, a { transition: var(--transition); }
 /*-----------------------------------*\
   #FOOTER
 \*-----------------------------------*/
-
 .footer {
-  background: var(--raisin-black-1);
+  background: black;
   color: var(--white);
   margin-bottom: 68px;
 }
+
 
 .footer .container { padding-inline: 30px; }
 
