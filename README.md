@@ -9,3 +9,7 @@ To Readjust to client taste.
 Admin Panel Added. DB Linked successfully. 
 
 Confirm it works as planned. 
+
+
+This week admin panel polishing to be done  
+
