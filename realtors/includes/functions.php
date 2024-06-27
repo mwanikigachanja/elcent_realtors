@@ -95,6 +95,10 @@ function redirect_if_not_logged_in_or_verified() {
     if (!is_logged_in() || !is_admin_verified($_SESSION['user_id'])) {
         header("Location: login.php");
         exit;
+    } 
+    else {
+        header("Location: index.php");
+        exit;
     }
 }
 
