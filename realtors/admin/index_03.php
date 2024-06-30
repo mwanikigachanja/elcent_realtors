@@ -1,30 +1,21 @@
 <?php
+// Initialize the session
 session_start();
 
+// Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
 }
 
+// Include config file
 require_once "config.php";
 
-$query_property_count = "SELECT COUNT(*) AS count FROM properties";
-$result_property_count = mysqli_query($link, $query_property_count);
-$property_count = $result_property_count ? mysqli_fetch_assoc($result_property_count)['count'] : 0;
-
-$query_testimonial_count = "SELECT COUNT(*) AS count FROM testimonials";
-$result_testimonial_count = mysqli_query($link, $query_testimonial_count);
-$testimonial_count = $result_testimonial_count ? mysqli_fetch_assoc($result_testimonial_count)['count'] : 0;
-
-$query_blog_count = "SELECT COUNT(*) AS count FROM blogs";
-$result_blog_count = mysqli_query($link, $query_blog_count);
-$blog_count = $result_blog_count ? mysqli_fetch_assoc($result_blog_count)['count'] : 0;
-
-$query_user_count = "SELECT COUNT(*) AS count FROM users";
-$result_user_count = mysqli_query($link, $query_user_count);
-$user_count = $result_user_count ? mysqli_fetch_assoc($result_user_count)['count'] : 0;
-
-mysqli_close($link);
+// Fetch data for dashboard
+$property_count = mysqli_query($link, "SELECT COUNT(*) AS count FROM properties")->fetch_assoc()['count'];
+$testimonial_count = mysqli_query($link, "SELECT COUNT(*) AS count FROM testimonials")->fetch_assoc()['count'];
+$blog_count = mysqli_query($link, "SELECT COUNT(*) AS count FROM blogs")->fetch_assoc()['count'];
+$user_count = mysqli_query($link, "SELECT COUNT(*) AS count FROM users")->fetch_assoc()['count'];
 ?>
 
 <!DOCTYPE html>
@@ -41,6 +32,7 @@ mysqli_close($link);
 </head>
 <body>
     <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
         <div class="bg-light border-right" id="sidebar-wrapper">
             <div class="sidebar-heading">Elcent Realtors </div>
             <div class="list-group list-group-flush">
@@ -52,6 +44,9 @@ mysqli_close($link);
                 <a href="logout.php" class="list-group-item list-group-item-action bg-light">Logout</a>
             </div>
         </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
         <div id="page-content-wrapper">
             <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                 <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
@@ -70,7 +65,7 @@ mysqli_close($link);
                                     <div class="m-r-20 align-self-center"><i class="fas fa-home fa-2x text-primary"></i></div>
                                     <div class="align-self-center">
                                         <h6 class="text-muted m-t-10 m-b-0">Properties</h6>
-                                        <h2 class="m-t-0"><?php echo htmlspecialchars($property_count); ?></h2>
+                                        <h2 class="m-t-0"><?php echo $property_count; ?></h2>
                                     </div>
                                 </div>
                             </div>
@@ -83,7 +78,7 @@ mysqli_close($link);
                                     <div class="m-r-20 align-self-center"><i class="fas fa-comment fa-2x text-primary"></i></div>
                                     <div class="align-self-center">
                                         <h6 class="text-muted m-t-10 m-b-0">Testimonials</h6>
-                                        <h2 class="m-t-0"><?php echo htmlspecialchars($testimonial_count); ?></h2>
+                                        <h2 class="m-t-0"><?php echo $testimonial_count; ?></h2>
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +91,7 @@ mysqli_close($link);
                                     <div class="m-r-20 align-self-center"><i class="fas fa-newspaper fa-2x text-primary"></i></div>
                                     <div class="align-self-center">
                                         <h6 class="text-muted m-t-10 m-b-0">Blogs</h6>
-                                        <h2 class="m-t-0"><?php echo htmlspecialchars($blog_count); ?></h2>
+                                        <h2 class="m-t-0"><?php echo $blog_count; ?></h2>
                                     </div>
                                 </div>
                             </div>
@@ -109,21 +104,27 @@ mysqli_close($link);
                                     <div class="m-r-20 align-self-center"><i class="fas fa-users fa-2x text-primary"></i></div>
                                     <div class="align-self-center">
                                         <h6 class="text-muted m-t-10 m-b-0">Users</h6>
-                                        <h2 class="m-t-0"><?php echo htmlspecialchars($user_count); ?></h2>
+                                        <h2 class="m-t-0"><?php echo $user_count; ?></h2>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <!-- Add more content here for forms to add properties, testimonials, blogs, etc. -->
             </div>
         </div>
+        <!-- /#page-content-wrapper -->
     </div>
+    <!-- /#wrapper -->
 
+    <!-- Bootstrap core JavaScript -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Menu Toggle Script -->
     <script>
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
