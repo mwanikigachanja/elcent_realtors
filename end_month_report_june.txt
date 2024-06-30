@@ -1,0 +1,138 @@
+**Status Report for Elcent Realtors Website Development**
+
+**Date:** [Current Date]
+
+**Prepared by:** [Your Name]
+
+---
+
+### Project Overview
+
+The Elcent Realtors website aims to provide a comprehensive platform for property listings, bookings, user management, and administrative functionalities. This report outlines the progress, current status, and planned changes to ensure the website goes live within the next 24 hours.
+
+---
+
+### Current Status
+
+#### Completed Components
+1. **Landing Page:**
+   - Designed to be visually appealing and user-friendly.
+   - Includes sections for property listings, blogs, testimonials, and contact information.
+
+2. **Property Listings:**
+   - Displays properties dynamically fetched from the database.
+   - Each property includes detailed information and images.
+
+3. **User Management:**
+   - Allows users to create accounts, log in, and manage reservations.
+   - Email confirmations for account registration and property reservations.
+
+4. **Admin Panel:**
+   - Admins can manage properties, reservations, testimonials, and users.
+   - Registration and activation of new admin accounts via email.
+
+5. **Integration:**
+   - MPESA and banking services integrated for payment processing.
+   - Email notifications for successful payments and account activities.
+
+#### Outstanding Issues
+1. **Admin Panel Login Module:**
+   - Users are being redirected to the login page after attempting to log in.
+
+---
+
+### Planned Changes and Immediate Actions
+
+#### Admin Panel Login Module Simplification
+1. **Objective:** Simplify the admin login process while maintaining security to ensure functionality before going live.
+   
+2. **Steps:**
+   - Review and simplify the current login validation logic.
+   - Ensure session management is correctly implemented.
+   - Implement error handling and debugging to identify the root cause of the redirection issue.
+
+3. **Code Changes:**
+
+   **login.php**
+   ```php
+   <?php
+   session_start();
+   include('functions.php');
+
+   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+       $email = $_POST['email'];
+       $password = $_POST['password'];
+
+       if (loginAdmin($email, $password)) {
+           $_SESSION['admin_logged_in'] = true;
+           header('Location: dashboard.php');
+           exit();
+       } else {
+           $error_message = "Invalid email or password.";
+       }
+   }
+   ?>
+   ```
+
+   **functions.php**
+   ```php
+   <?php
+   function loginAdmin($email, $password) {
+       global $conn;
+       $stmt = $conn->prepare("SELECT * FROM admins WHERE email = ?");
+       $stmt->bind_param('s', $email);
+       $stmt->execute();
+       $result = $stmt->get_result();
+       $user = $result->fetch_assoc();
+
+       if ($user && password_verify($password, $user['password'])) {
+           return true;
+       } else {
+           return false;
+       }
+   }
+   ?>
+   ```
+
+4. **Testing:**
+   - Thoroughly test the admin login functionality to ensure no redirection issues.
+   - Verify that only authenticated admins can access the dashboard.
+
+---
+
+### Summary of Project Progress
+
+- **Landing Page:** 100% complete.
+- **Property Listings:** 100% complete.
+- **User Management:** 100% complete.
+- **Admin Panel:** 90% complete (pending login module fix).
+- **Payment Integration:** 100% complete.
+
+---
+
+### Next Steps
+
+1. **Fix Admin Panel Login Module:**
+   - Implement and test the simplified login process.
+   - Ensure secure session management.
+
+2. **Final Testing:**
+   - Conduct comprehensive testing of the entire website.
+   - Ensure all functionalities work seamlessly.
+
+3. **Go Live:**
+   - Once the above steps are successfully completed, deploy the website on the live server.
+   - Monitor the site for any post-launch issues and address them promptly.
+
+---
+
+### Conclusion
+
+We are on track to go live within the next 24 hours. Immediate attention to the admin panel login module will ensure a smooth launch. The website will provide a robust platform for Elcent Realtors to manage and showcase their properties effectively.
+
+---
+
+**Prepared by:**
+Charles Mwaniki
+---
+
