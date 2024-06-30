@@ -1,43 +1,63 @@
 <?php
-error_reporting(E_ALL);
 ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-include('../includes/db.php');
-include('../includes/functions.php');
-include('../includes/session.php');
+session_start();
+require_once "config.php";
+
+$username = $password = "";
+$username_err = $password_err = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = trim($_POST['email']);
-    $password = trim($_POST['password']);
-
-    if (empty($email) || empty($password)) {
-        $error = "Email or Password is empty!";
+    if (empty(trim($_POST["username"]))) {
+        $username_err = "Please enter username.";
     } else {
-        $stmt = $conn->prepare("SELECT * FROM admins WHERE email = ?");
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        $username = trim($_POST["username"]);
+    }
 
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            if (password_verify($password, $row['password'])) {
-                if ($row['is_verified'] == 1) {
-                    $_SESSION['admin_id'] = $row['id'];
-                    $_SESSION['admin_name'] = $row['username'];
-                    header("Location: index.php");
-                    exit();
+    if (empty(trim($_POST["password"]))) {
+        $password_err = "Please enter your password.";
+    } else {
+        $password = trim($_POST["password"]);
+    }
+
+    if (empty($username_err) && empty($password_err)) {
+        $sql = "SELECT id, username, password FROM users WHERE username = ?";
+
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            mysqli_stmt_bind_param($stmt, "s", $param_username);
+            $param_username = $username;
+
+            if (mysqli_stmt_execute($stmt)) {
+                mysqli_stmt_store_result($stmt);
+
+                if (mysqli_stmt_num_rows($stmt) == 1) {
+                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
+                    if (mysqli_stmt_fetch($stmt)) {
+                        if (password_verify($password, $hashed_password)) {
+                            session_start();
+                            $_SESSION["loggedin"] = true;
+                            $_SESSION["id"] = $id;
+                            $_SESSION["username"] = $username;
+
+                            header("location: index.php");
+                        } else {
+                            $password_err = "The password you entered was not valid.";
+                        }
+                    }
                 } else {
-                    $error = "Your account is not activated. Please check your email.";
+                    $username_err = "No account found with that username.";
                 }
             } else {
-                $error = "Invalid password.";
+                echo "Oops! Something went wrong. Please try again later.";
             }
-        } else {
-            $error = "No account found with that email.";
-        }
 
-        $stmt->close();
+            mysqli_stmt_close($stmt);
+        }
     }
+
+    mysqli_close($link);
 }
 ?>
 
@@ -45,34 +65,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login</title>
-    <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container">
-        <h2>Admin Login</h2>
-        <?php if (!empty($error)): ?>
-            <div class="alert alert-danger"><?php echo $error; ?></div>
-        <?php endif; ?>
-        <form action="login.php" method="post">
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" required>
+    <div class="wrapper">
+        <h2>Login</h2>
+        <p>Please fill in your credentials to login.</p>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
+                <label>Username</label>
+                <input type="text" name="username" class="form-control" value="<?php echo $username; ?>">
+                <span class="help-block"><?php echo $username_err; ?></span>
+            </div>
+            <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+                <label>Password</label>
+                <input type="password" name="password" class="form-control">
+                <span class="help-block"><?php echo $password_err; ?></span>
             </div>
             <div class="form-group">
-                <label for="pwd">Password:</label>
-                <input type="password" class="form-control" id="pwd" name="password" required>
+                <input type="submit" class="btn btn-primary" value="Login">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button><br>
-            <a href="forgot_password.php">Forgot Password?</a><br>
-            <a href="register_admin.php">Register</a>
         </form>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
