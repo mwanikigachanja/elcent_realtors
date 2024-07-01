@@ -1,92 +1,56 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 session_start();
-require_once "config.php";
-
-$username = $password = "";
-$username_err = $password_err = "";
+require 'config.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (empty(trim($_POST["username"]))) {
-        $username_err = "Please enter username.";
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    // Check if fields are empty
+    if (empty($username) || empty($password)) {
+        $error = "Username or Password is invalid";
     } else {
-        $username = trim($_POST["username"]);
-    }
+        // Prepare and bind
+        $stmt = $link->prepare("SELECT id, username, password FROM admins WHERE username = ?");
+        $stmt->bind_param("s", $username);
 
-    if (empty(trim($_POST["password"]))) {
-        $password_err = "Please enter your password.";
-    } else {
-        $password = trim($_POST["password"]);
-    }
+        // Execute statement
+        $stmt->execute();
+        $stmt->store_result();
 
-    if (empty($username_err) && empty($password_err)) {
-        $sql = "SELECT id, username, password FROM admins WHERE username = ?";
-
-        if ($stmt = mysqli_prepare($link, $sql)) {
-            mysqli_stmt_bind_param($stmt, "s", $param_username);
-            $param_username = $username;
-
-            if (mysqli_stmt_execute($stmt)) {
-                mysqli_stmt_store_result($stmt);
-
-                if (mysqli_stmt_num_rows($stmt) == 1) {
-                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
-                    if (mysqli_stmt_fetch($stmt)) {
-                        if (password_verify($password, $hashed_password)) {
-                            session_start();
-                            $_SESSION["loggedin"] = true;
-                            $_SESSION["id"] = $id;
-                            $_SESSION["username"] = $username;
-
-                            header("location: index.php");
-                        } else {
-                            $password_err = "The password you entered was not valid.";
-                        }
-                    }
-                } else {
-                    $username_err = "No account found with that username.";
-                }
+        // Check if username exists
+        if ($stmt->num_rows > 0) {
+            $stmt->bind_result($id, $username, $hashed_password);
+            $stmt->fetch();
+            // Verify password
+            if (password_verify($password, $hashed_password)) {
+                // Set session variables
+                $_SESSION['login_user'] = $username;
+                header("location: index.php");
             } else {
-                echo "Oops! Something went wrong. Please try again later.";
+                $error = "Password is invalid";
             }
-
-            mysqli_stmt_close($stmt);
+        } else {
+            $error = "No account found with that username";
         }
+        $stmt->close();
     }
-
-    mysqli_close($link);
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Admin Login</title>
 </head>
 <body>
-    <div class="wrapper">
-        <h2>Login</h2>
-        <p>Please fill in your credentials to login.</p>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
-                <label>Username</label>
-                <input type="text" name="username" class="form-control" value="<?php echo htmlspecialchars($username); ?>">
-                <span class="help-block"><?php echo htmlspecialchars($username_err); ?></span>
-            </div>
-            <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control">
-                <span class="help-block"><?php echo htmlspecialchars($password_err); ?></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Login">
-            </div>
-        </form>
-    </div>
+    <form action="" method="post">
+        <label>Username:</label>
+        <input type="text" name="username"><br>
+        <label>Password:</label>
+        <input type="password" name="password"><br>
+        <input type="submit" value="Login">
+        <span><?php echo isset($error) ? $error : ''; ?></span>
+    </form>
 </body>
 </html>
