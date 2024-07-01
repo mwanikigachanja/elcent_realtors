@@ -1,134 +1,90 @@
 <?php
 session_start();
+require 'config.php';
 
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+// Check if user is logged in
+if (!isset($_SESSION['login_user'])) {
     header("location: login.php");
     exit;
 }
 
-require_once "config.php";
-
-$query_property_count = "SELECT COUNT(*) AS count FROM properties";
-$result_property_count = mysqli_query($link, $query_property_count);
-$property_count = $result_property_count ? mysqli_fetch_assoc($result_property_count)['count'] : 0;
-
-$query_testimonial_count = "SELECT COUNT(*) AS count FROM testimonials";
-$result_testimonial_count = mysqli_query($link, $query_testimonial_count);
-$testimonial_count = $result_testimonial_count ? mysqli_fetch_assoc($result_testimonial_count)['count'] : 0;
-
-$query_blog_count = "SELECT COUNT(*) AS count FROM blogs";
-$result_blog_count = mysqli_query($link, $query_blog_count);
-$blog_count = $result_blog_count ? mysqli_fetch_assoc($result_blog_count)['count'] : 0;
-
-$query_user_count = "SELECT COUNT(*) AS count FROM users";
-$result_user_count = mysqli_query($link, $query_user_count);
-$user_count = $result_user_count ? mysqli_fetch_assoc($result_user_count)['count'] : 0;
-
-mysqli_close($link);
+// Fetch data for dashboard
+$properties_count = $link->query("SELECT COUNT(*) FROM properties")->fetch_row()[0];
+$users_count = $link->query("SELECT COUNT(*) FROM users")->fetch_row()[0];
+$testimonials_count = $link->query("SELECT COUNT(*) FROM testimonials")->fetch_row()[0];
+$blogs_count = $link->query("SELECT COUNT(*) FROM blogs")->fetch_row()[0];
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Admin Dashboard - Elcent Realtors</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="path/to/bootstrap.css">
+    <style>
+        .dashboard {
+            padding: 20px;
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-    <div class="d-flex" id="wrapper">
-        <div class="bg-light border-right" id="sidebar-wrapper">
-            <div class="sidebar-heading">Elcent Realtors </div>
-            <div class="list-group list-group-flush">
-                <a href="index.php" class="list-group-item list-group-item-action bg-light">Dashboard</a>
-                <a href="properties.php" class="list-group-item list-group-item-action bg-light">Manage Properties</a>
-                <a href="testimonials.php" class="list-group-item list-group-item-action bg-light">Manage Testimonials</a>
-                <a href="blogs.php" class="list-group-item list-group-item-action bg-light">Manage Blogs</a>
-                <a href="users.php" class="list-group-item list-group-item-action bg-light">Manage Users</a>
-                <a href="logout.php" class="list-group-item list-group-item-action bg-light">Logout</a>
-            </div>
-        </div>
-        <div id="page-content-wrapper">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-                <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            </nav>
-
-            <div class="container-fluid">
-                <h1 class="mt-4">Admin Dashboard</h1>
-                <div class="row">
-                    <div class="col-lg-3 col-md-6 mb-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex no-block">
-                                    <div class="m-r-20 align-self-center"><i class="fas fa-home fa-2x text-primary"></i></div>
-                                    <div class="align-self-center">
-                                        <h6 class="text-muted m-t-10 m-b-0">Properties</h6>
-                                        <h2 class="m-t-0"><?php echo htmlspecialchars($property_count); ?></h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 mb-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex no-block">
-                                    <div class="m-r-20 align-self-center"><i class="fas fa-comment fa-2x text-primary"></i></div>
-                                    <div class="align-self-center">
-                                        <h6 class="text-muted m-t-10 m-b-0">Testimonials</h6>
-                                        <h2 class="m-t-0"><?php echo htmlspecialchars($testimonial_count); ?></h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 mb-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex no-block">
-                                    <div class="m-r-20 align-self-center"><i class="fas fa-newspaper fa-2x text-primary"></i></div>
-                                    <div class="align-self-center">
-                                        <h6 class="text-muted m-t-10 m-b-0">Blogs</h6>
-                                        <h2 class="m-t-0"><?php echo htmlspecialchars($blog_count); ?></h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 mb-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex no-block">
-                                    <div class="m-r-20 align-self-center"><i class="fas fa-users fa-2x text-primary"></i></div>
-                                    <div class="align-self-center">
-                                        <h6 class="text-muted m-t-10 m-b-0">Users</h6>
-                                        <h2 class="m-t-0"><?php echo htmlspecialchars($user_count); ?></h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+    <div class="container dashboard">
+        <h1>Welcome, <?php echo $_SESSION['login_user']; ?></h1>
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Properties</h5>
+                        <p class="card-text"><?php echo $properties_count; ?></p>
                     </div>
                 </div>
-                <!-- Add more content here for forms to add properties, testimonials, blogs, etc. -->
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Users</h5>
+                        <p class="card-text"><?php echo $users_count; ?></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Testimonials</h5>
+                        <p class="card-text"><?php echo $testimonials_count; ?></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Blogs</h5>
+                        <p class="card-text"><?php echo $blogs_count; ?></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2>Manage Content</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <a href="manage_properties.php" class="btn btn-primary btn-block">Manage Properties</a>
+            </div>
+            <div class="col-md-6">
+                <a href="manage_users.php" class="btn btn-primary btn-block">Manage Users</a>
+            </div>
+            <div class="col-md-6">
+                <a href="manage_testimonials.php" class="btn btn-primary btn-block">Manage Testimonials</a>
+            </div>
+            <div class="col-md-6">
+                <a href="manage_blogs.php" class="btn btn-primary btn-block">Manage Blogs</a>
             </div>
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-    </script>
+    <script src="path/to/jquery.js"></script>
+    <script src="path/to/bootstrap.js"></script>
 </body>
 </html>
