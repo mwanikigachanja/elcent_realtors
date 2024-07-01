@@ -8,29 +8,12 @@ if (!isset($_SESSION['admin_id'])) {
 include('config.php');
 
 // Fetch snapshot data
-$total_properties_query = "SELECT COUNT(*) as count FROM properties";
-$total_properties_result = mysqli_query($link, $total_properties_query);
-$total_properties = mysqli_fetch_assoc($total_properties_result)['count'];
-
-$total_sold_properties_query = "SELECT COUNT(*) as count FROM properties WHERE status = 'sold'";
-$total_sold_properties_result = mysqli_query($link, $total_sold_properties_query);
-$total_sold_properties = mysqli_fetch_assoc($total_sold_properties_result)['count'];
-
-$total_reservations_query = "SELECT COUNT(*) as count FROM reservations";
-$total_reservations_result = mysqli_query($link, $total_reservations_query);
-$total_reservations = mysqli_fetch_assoc($total_reservations_result)['count'];
-
-$total_testimonials_query = "SELECT COUNT(*) as count FROM testimonials";
-$total_testimonials_result = mysqli_query($link, $total_testimonials_query);
-$total_testimonials = mysqli_fetch_assoc($total_testimonials_result)['count'];
-
-$total_blogs_query = "SELECT COUNT(*) as count FROM blogs";
-$total_blogs_result = mysqli_query($link, $total_blogs_query);
-$total_blogs = mysqli_fetch_assoc($total_blogs_result)['count'];
-
-$total_users_query = "SELECT COUNT(*) as count FROM users";
-$total_users_result = mysqli_query($link, $total_users_query);
-$total_users = mysqli_fetch_assoc($total_users_result)['count'];
+$totalProperties = $link->query("SELECT COUNT(*) FROM properties")->fetch_row()[0];
+$totalSold = $link->query("SELECT COUNT(*) FROM properties WHERE status = 'sold'")->fetch_row()[0];
+$totalReservations = $link->query("SELECT COUNT(*) FROM reservations")->fetch_row()[0];
+$totalTestimonials = $link->query("SELECT COUNT(*) FROM testimonials")->fetch_row()[0];
+$totalBlogs = $link->query("SELECT COUNT(*) FROM blogs")->fetch_row()[0];
+$totalUsers = $link->query("SELECT COUNT(*) FROM users")->fetch_row()[0];
 
 ?>
 
@@ -56,63 +39,56 @@ $total_users = mysqli_fetch_assoc($total_users_result)['count'];
         </div>
     </nav>
     <div class="container mt-5">
-        <h1 class="mb-4">Admin Dashboard</h1>
         <div class="row">
-            <div class="col-md-3 mb-4">
+            <div class="col-md-3">
                 <div class="card">
-                    <div class="card-header">Total Properties</div>
+                    <div class="card-header">Properties</div>
                     <div class="card-body">
-                        <h5><?php echo $total_properties; ?></h5>
+                        <h5 class="card-title"><?php echo $totalProperties; ?> Total Properties</h5>
+                        <p class="card-text"><?php echo $totalSold; ?> Properties Sold</p>
                         <a href="manage_properties.php" class="btn btn-primary btn-block">Manage Properties</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-4">
+            <div class="col-md-3">
                 <div class="card">
-                    <div class="card-header">Total Sold Properties</div>
+                    <div class="card-header">Reservations</div>
                     <div class="card-body">
-                        <h5><?php echo $total_sold_properties; ?></h5>
-                        <a href="manage_properties.php" class="btn btn-primary btn-block">Manage Properties</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-4">
-                <div class="card">
-                    <div class="card-header">Total Reservations</div>
-                    <div class="card-body">
-                        <h5><?php echo $total_reservations; ?></h5>
+                        <h5 class="card-title"><?php echo $totalReservations; ?> Total Reservations</h5>
                         <a href="manage_reservations.php" class="btn btn-primary btn-block">Manage Reservations</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-4">
+            <div class="col-md-3">
                 <div class="card">
-                    <div class="card-header">Total Testimonials</div>
+                    <div class="card-header">Testimonials</div>
                     <div class="card-body">
-                        <h5><?php echo $total_testimonials; ?></h5>
+                        <h5 class="card-title"><?php echo $totalTestimonials; ?> Total Testimonials</h5>
                         <a href="manage_testimonials.php" class="btn btn-primary btn-block">Manage Testimonials</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-4">
+            <div class="col-md-3">
                 <div class="card">
-                    <div class="card-header">Total Blogs</div>
+                    <div class="card-header">Blogs</div>
                     <div class="card-body">
-                        <h5><?php echo $total_blogs; ?></h5>
+                        <h5 class="card-title"><?php echo $totalBlogs; ?> Total Blogs</h5>
                         <a href="manage_blogs.php" class="btn btn-primary btn-block">Manage Blogs</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-4">
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header">Total Users</div>
+                    <div class="card-header">Users</div>
                     <div class="card-body">
-                        <h5><?php echo $total_users; ?></h5>
+                        <h5 class="card-title"><?php echo $totalUsers; ?> Total Users</h5>
                         <a href="manage_users.php" class="btn btn-primary btn-block">Manage Users</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 mb-4">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">Analytics</div>
                     <div class="card-body">

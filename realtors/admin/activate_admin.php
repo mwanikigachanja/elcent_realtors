@@ -26,5 +26,6 @@ if (isset($_GET['token'])) {
 <body>
     <h2>Activate Admin</h2>
     <p>Activation status will be displayed here.</p>
+    <p>Proceed to <a href="login.php">Login</a></p>
 </body>
 </html>

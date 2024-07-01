@@ -1,63 +1,59 @@
 <?php
-include('../includes/session.php');
-redirectIfNotLoggedIn();
-include('../includes/db.php');
+session_start();
+require 'config.php';
+require '../includes/functions.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $title = $conn->real_escape_string($_POST['title']);
-    $description = $conn->real_escape_string($_POST['description']);
-    $price = $conn->real_escape_string($_POST['price']);
-    $location = $conn->real_escape_string($_POST['location']);
-    $features = $conn->real_escape_string($_POST['features']);
+if (!isset($_SESSION['admin_id'])) {
+    header('Location: login.php');
+    exit;
+}
 
-    // Handle file upload
-    $images = '';
-    if (!empty($_FILES['images']['name'][0])) {
-        $imageNames = [];
-        foreach ($_FILES['images']['name'] as $key => $name) {
-            $targetDir = "uploads/";
-            $targetFile = $targetDir . basename($_FILES['images']['name'][$key]);
-            if (move_uploaded_file($_FILES['images']['tmp_name'][$key], $targetFile)) {
-                $imageNames[] = $targetFile;
-            }
-        }
-        $images = implode(',', $imageNames);
-    }
-
-    $query = "INSERT INTO properties (title, description, price, location, features, images) VALUES ('$title', '$description', '$price', '$location', '$features', '$images')";
-
-    if ($conn->query($query) === TRUE) {
-        echo "New property added successfully";
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $title = mysqli_real_escape_string($link, $_POST['title']);
+    $description = mysqli_real_escape_string($link, $_POST['description']);
+    $price = mysqli_real_escape_string($link, $_POST['price']);
+    $location = mysqli_real_escape_string($link, $_POST['location']);
+    $features = mysqli_real_escape_string($link, $_POST['features']);
+    $images = mysqli_real_escape_string($link, $_POST['images']);
+    $status = mysqli_real_escape_string($link, $_POST['status']);
+    
+    $query = "INSERT INTO properties (title, description, price, location, features, images, status) 
+              VALUES ('$title', '$description', '$price', '$location', '$features', '$images', '$status')";
+    
+    if (mysqli_query($link, $query)) {
+        header('Location: manage_properties.php');
+        exit;
     } else {
-        echo "Error: " . $query . "<br>" . $conn->error;
+        $error = "Error adding property: " . mysqli_error($link);
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Property</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Add Property - Elcent Realtors</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container mt-5">
-        <h2 class="text-center">Add New Property</h2>
-        <form action="add_property.php" method="POST" enctype="multipart/form-data">
+    <div class="container">
+        <h1 class="mt-4">Add New Property</h1>
+        <?php if (isset($error)): ?>
+            <div class="alert alert-danger"><?= $error ?></div>
+        <?php endif; ?>
+        <form method="post" action="">
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" class="form-control" id="title" name="title" required>
             </div>
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
+                <textarea class="form-control" id="description" name="description" required></textarea>
             </div>
             <div class="form-group">
                 <label for="price">Price</label>
-                <input type="text" class="form-control" id="price" name="price" required>
+                <input type="number" step="0.01" class="form-control" id="price" name="price" required>
             </div>
             <div class="form-group">
                 <label for="location">Location</label>
@@ -65,11 +61,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="form-group">
                 <label for="features">Features</label>
-                <textarea class="form-control" id="features" name="features" rows="5"></textarea>
+                <textarea class="form-control" id="features" name="features"></textarea>
             </div>
             <div class="form-group">
-                <label for="images">Images</label>
-                <input type="file" class="form-control-file" id="images" name="images[]" multiple>
+                <label for="images">Images URL</label>
+                <input type="text" class="form-control" id="images" name="images">
+            </div>
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select class="form-control" id="status" name="status">
+                    <option value="available">Available</option>
+                    <option value="sold">Sold</option>
+                    <option value="pending">Pending</option>
+                </select>
             </div>
             <button type="submit" class="btn btn-primary">Add Property</button>
         </form>
