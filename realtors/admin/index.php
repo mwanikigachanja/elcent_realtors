@@ -6,6 +6,14 @@ if (!isset($_SESSION['admin_id'])) {
 }
 
 include('config.php');
+
+// Fetch snapshot data
+$totalProperties = $link->query("SELECT COUNT(*) FROM properties")->fetch_row()[0];
+$totalSold = $link->query("SELECT COUNT(*) FROM properties WHERE status = 'sold'")->fetch_row()[0];
+$totalReservations = $link->query("SELECT COUNT(*) FROM reservations")->fetch_row()[0];
+$totalTestimonials = $link->query("SELECT COUNT(*) FROM testimonials")->fetch_row()[0];
+$totalBlogs = $link->query("SELECT COUNT(*) FROM blogs")->fetch_row()[0];
+$totalUsers = $link->query("SELECT COUNT(*) FROM users")->fetch_row()[0];
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +43,7 @@ include('config.php');
                 <div class="card">
                     <div class="card-header">Properties</div>
                     <div class="card-body">
-                        <a href="manage_properties.php" class="btn btn-primary btn-block">Manage Properties</a>
+                        <a href="manage_property.php" class="btn btn-primary btn-block">Manage Properties</a>
                     </div>
                 </div>
             </div>
