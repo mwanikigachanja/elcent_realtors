@@ -1,56 +1,37 @@
 <?php
 session_start();
-require 'config.php';
+include('config.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = mysqli_real_escape_string($link, $_POST['username']);
+    $password = mysqli_real_escape_string($link, $_POST['password']);
 
-    // Check if fields are empty
-    if (empty($username) || empty($password)) {
-        $error = "Username or Password is invalid";
+    $sql = "SELECT * FROM admins WHERE username = '$username'";
+    $result = mysqli_query($link, $sql);
+    $user = mysqli_fetch_assoc($result);
+
+    if ($user && password_verify($password, $user['password'])) {
+        $_SESSION['admin_id'] = $user['id'];
+        $_SESSION['admin_username'] = $user['username'];
+        header("Location: index.php");
+        exit();
     } else {
-        // Prepare and bind
-        $stmt = $link->prepare("SELECT id, username, password FROM admins WHERE username = ?");
-        $stmt->bind_param("s", $username);
-
-        // Execute statement
-        $stmt->execute();
-        $stmt->store_result();
-
-        // Check if username exists
-        if ($stmt->num_rows > 0) {
-            $stmt->bind_result($id, $username, $hashed_password);
-            $stmt->fetch();
-            // Verify password
-            if (password_verify($password, $hashed_password)) {
-                // Set session variables
-                $_SESSION['login_user'] = $username;
-                header("location: index.php");
-            } else {
-                $error = "Password is invalid";
-            }
-        } else {
-            $error = "No account found with that username";
-        }
-        $stmt->close();
+        echo "Invalid login credentials.";
     }
 }
 ?>
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Admin Login</title>
 </head>
 <body>
-    <form action="" method="post">
-        <label>Username:</label>
-        <input type="text" name="username"><br>
-        <label>Password:</label>
-        <input type="password" name="password"><br>
-        <input type="submit" value="Login">
-        <span><?php echo isset($error) ? $error : ''; ?></span>
+    <form action="login.php" method="POST">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
     </form>
+    <a href="register.php">Register as Admin</a>
 </body>
 </html>
