@@ -14,6 +14,7 @@ $totalReservations = $link->query("SELECT COUNT(*) FROM reservations")->fetch_ro
 $totalTestimonials = $link->query("SELECT COUNT(*) FROM testimonials")->fetch_row()[0];
 $totalBlogs = $link->query("SELECT COUNT(*) FROM blogs")->fetch_row()[0];
 $totalUsers = $link->query("SELECT COUNT(*) FROM users")->fetch_row()[0];
+
 ?>
 
 <!DOCTYPE html>
