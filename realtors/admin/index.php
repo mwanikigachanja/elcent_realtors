@@ -43,7 +43,7 @@ $total_users = mysqli_fetch_assoc($total_users_result)['count'];
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Elcent Realtors Admin</a>
+        <a class="navbar-brand" href="index.php">Elcent Realtors Admin</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>

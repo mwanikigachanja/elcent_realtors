@@ -1,7 +1,7 @@
 <?php
 session_start();
 require 'config.php';
-require 'functions.php';
+
 
 if (!isset($_SESSION['admin_id'])) {
     header('Location: login.php');
