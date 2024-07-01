@@ -32,9 +32,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 <div class="container">
         <h2>Admin Login</h2>
-        <?php if (!empty($error)): ?>
-            <div class="alert alert-danger"><?php echo $error; ?></div>
-        <?php endif; ?>
         <form action="login.php" method="post">
             <div class="form-group">
                 <label for="email">Email:</label>
