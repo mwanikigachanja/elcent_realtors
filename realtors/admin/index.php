@@ -1,90 +1,87 @@
 <?php
 session_start();
-require 'config.php';
-
-// Check if user is logged in
-if (!isset($_SESSION['login_user'])) {
-    header("location: login.php");
-    exit;
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: login.php");
+    exit();
 }
 
-// Fetch data for dashboard
-$properties_count = $link->query("SELECT COUNT(*) FROM properties")->fetch_row()[0];
-$users_count = $link->query("SELECT COUNT(*) FROM users")->fetch_row()[0];
-$testimonials_count = $link->query("SELECT COUNT(*) FROM testimonials")->fetch_row()[0];
-$blogs_count = $link->query("SELECT COUNT(*) FROM blogs")->fetch_row()[0];
+include('config.php');
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="path/to/bootstrap.css">
-    <style>
-        .dashboard {
-            padding: 20px;
-        }
-        .card {
-            margin-bottom: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container dashboard">
-        <h1>Welcome, <?php echo $_SESSION['login_user']; ?></h1>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Elcent Realtors Admin</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="logout.php">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container mt-5">
         <div class="row">
-            <div class="col-lg-3 col-md-6">
+            <div class="col-md-3">
                 <div class="card">
+                    <div class="card-header">Properties</div>
                     <div class="card-body">
-                        <h5 class="card-title">Properties</h5>
-                        <p class="card-text"><?php echo $properties_count; ?></p>
+                        <a href="manage_properties.php" class="btn btn-primary btn-block">Manage Properties</a>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
+            <div class="col-md-3">
                 <div class="card">
+                    <div class="card-header">Reservations</div>
                     <div class="card-body">
-                        <h5 class="card-title">Users</h5>
-                        <p class="card-text"><?php echo $users_count; ?></p>
+                        <a href="manage_reservations.php" class="btn btn-primary btn-block">Manage Reservations</a>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
+            <div class="col-md-3">
                 <div class="card">
+                    <div class="card-header">Testimonials</div>
                     <div class="card-body">
-                        <h5 class="card-title">Testimonials</h5>
-                        <p class="card-text"><?php echo $testimonials_count; ?></p>
+                        <a href="manage_testimonials.php" class="btn btn-primary btn-block">Manage Testimonials</a>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
+            <div class="col-md-3">
                 <div class="card">
+                    <div class="card-header">Blogs</div>
                     <div class="card-body">
-                        <h5 class="card-title">Blogs</h5>
-                        <p class="card-text"><?php echo $blogs_count; ?></p>
+                        <a href="manage_blogs.php" class="btn btn-primary btn-block">Manage Blogs</a>
                     </div>
                 </div>
             </div>
         </div>
-
-        <h2>Manage Content</h2>
-        <div class="row">
+        <div class="row mt-5">
             <div class="col-md-6">
-                <a href="manage_properties.php" class="btn btn-primary btn-block">Manage Properties</a>
+                <div class="card">
+                    <div class="card-header">Users</div>
+                    <div class="card-body">
+                        <a href="manage_users.php" class="btn btn-primary btn-block">Manage Users</a>
+                    </div>
+                </div>
             </div>
             <div class="col-md-6">
-                <a href="manage_users.php" class="btn btn-primary btn-block">Manage Users</a>
-            </div>
-            <div class="col-md-6">
-                <a href="manage_testimonials.php" class="btn btn-primary btn-block">Manage Testimonials</a>
-            </div>
-            <div class="col-md-6">
-                <a href="manage_blogs.php" class="btn btn-primary btn-block">Manage Blogs</a>
+                <div class="card">
+                    <div class="card-header">Analytics</div>
+                    <div class="card-body">
+                        <a href="analytics.php" class="btn btn-primary btn-block">View Analytics</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-    <script src="path/to/jquery.js"></script>
-    <script src="path/to/bootstrap.js"></script>
 </body>
 </html>
