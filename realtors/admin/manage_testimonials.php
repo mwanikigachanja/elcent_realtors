@@ -1,48 +1,60 @@
 <?php
-include('../includes/session.php');
-redirectIfNotLoggedIn();
-include('../includes/db.php');
+include('config.php');
+include('functions.php');
+
+// Fetch testimonials
+$testimonials = mysqli_query($link, "SELECT * FROM testimonials");
+
+if (isset($_POST['delete_testimonial'])) {
+    $id = $_POST['id'];
+    mysqli_query($link, "DELETE FROM testimonials WHERE id='$id'");
+    header('Location: manage_testimonials.php');
+}
+
+if (isset($_POST['edit_testimonial'])) {
+    $id = $_POST['id'];
+    $author = $_POST['author'];
+    $content = $_POST['content'];
+    // Additional fields as per your DB structure
+    mysqli_query($link, "UPDATE testimonials SET author='$author', content='$content' WHERE id='$id'");
+    header('Location: manage_testimonials.php');
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Testimonials</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include your CSS here -->
 </head>
 <body>
-    <div class="container mt-5">
-        <h2 class="text-center">Manage Testimonials</h2>
-        <a href="add_testimonial.php" class="btn btn-success mb-3">Add New Testimonial</a>
-        <table class="table table-bordered">
-            <thead>
+    <h1>Manage Testimonials</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Author</th>
+                <th>Content</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php while($row = mysqli_fetch_assoc($testimonials)): ?>
                 <tr>
-                    <th>Client Name</th>
-                    <th>Message</th>
-                    <th>Actions</th>
+                    <td><?php echo $row['id']; ?></td>
+                    <td><?php echo $row['author']; ?></td>
+                    <td><?php echo $row['content']; ?></td>
+                    <td>
+                        <form method="post">
+                            <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                            <input type="submit" name="edit_testimonial" value="Edit">
+                            <input type="submit" name="delete_testimonial" value="Delete">
+                        </form>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                <?php
-                $result = $conn->query("SELECT * FROM testimonials");
-                while ($testimonial = $result->fetch_assoc()) {
-                ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($testimonial['client_name']); ?></td>
-                        <td><?php echo htmlspecialchars($testimonial['message']); ?></td>
-                        <td>
-                            <a href="edit_testimonial.php?id=<?php echo $testimonial['id']; ?>" class="btn btn-warning">Edit</a>
-                            <a href="delete_testimonial.php?id=<?php echo $testimonial['id']; ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this testimonial?');">Delete</a>
-                        </td>
-                    </tr>
-                <?php
-                }
-                ?>
-            </tbody>
-        </table>
-    </div>
+            <?php endwhile; ?>
+        </tbody>
+    </table>
 </body>
 </html>
