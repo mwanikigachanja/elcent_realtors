@@ -69,6 +69,7 @@ $result = mysqli_query($link, $query);
         <table class="table table-striped mt-4">
             <thead class="thead-dark">
                 <tr>
+                    <th>ID</th>
                     <th>Title</th>
                     <th>Description</th>
                     <th>Price</th>
