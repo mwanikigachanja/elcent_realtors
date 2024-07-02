@@ -52,6 +52,15 @@
   </div>
 </nav>
     <div class="container">
+    
+    <?php
+include 'config.php';
+
+// Fetch properties from database
+$query = "SELECT * FROM properties";
+$result = mysqli_query($link, $query);
+?>
+
         <h1 class="mb-4">Manage Properties</h1>
         <button type="button" class="btn btn-custom" data-toggle="modal" data-target="#addPropertyModal">
             Add New Property
@@ -65,12 +74,29 @@
                     <th>Price</th>
                     <th>Location</th>
                     <th>Features</th>
+                    <th>Images</th>
                     <th>Status</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <!-- Add PHP code to fetch and display properties from database -->
+                <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+            <tr>
+                <td><?php echo $row['id']; ?></td>
+                <td><?php echo $row['title']; ?></td>
+                <td><?php echo $row['description']; ?></td>
+                <td><?php echo $row['price']; ?></td>
+                <td><?php echo $row['location'];?></td>
+                <td><?php echo $row['features'];?></td>
+                <td><?php echo $row['images'];?></td>
+                <td><?php echo $row['status'];?></td>
+                <td>
+                    <a href="edit_property.php?id=<?php echo $row['id']; ?>" class="btn btn-primary">Edit</a>
+                    <a href="delete_property.php?id=<?php echo $row['id']; ?>" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        <?php } ?>
             </tbody>
         </table>
     </div>
