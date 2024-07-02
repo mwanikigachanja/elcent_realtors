@@ -1,107 +1,84 @@
 <?php
-session_start();
-if(!isset($_SESSION['admin_id'])) {
-    header('Location: login.php');
-    exit();
-}
+include 'header.php';
+include 'config.php';
 
-require_once 'config.php';
-
-// Fetch properties from the database
+// Fetch properties from database
 $query = "SELECT * FROM properties";
 $result = mysqli_query($link, $query);
-$properties = mysqli_fetch_all($result, MYSQLI_ASSOC);
 ?>
+    <h1>Manage Properties</h1>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addPropertyModal">
+            Add Property
+        </button>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Manage Properties</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/@ionic/core@5.0.0/dist/ionic/ionic.js"></script>
-    <style>
-        /* Add your custom styles here */
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Manage Properties</h1>
-        <button id="addPropertyBtn">Add New Property</button>
-        <table>
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Location</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($properties as $property): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($property['title']); ?></td>
-                        <td><?= htmlspecialchars($property['description']); ?></td>
-                        <td><?= htmlspecialchars($property['price']); ?></td>
-                        <td><?= htmlspecialchars($property['location']); ?></td>
-                        <td>
-                            <a href="edit_property.php?id=<?= $property['id']; ?>">Edit</a>
-                            <a href="delete_property.php?id=<?= $property['id']; ?>">Delete</a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
+    <!-- Modal -->
+        <div class="modal fade" id="addPropertyModal" tabindex="-1" role="dialog" aria-labelledby="addPropertyModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addPropertyModalLabel">Add New Property</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addPropertyForm" method="POST" action="add_property.php">
+                            <div class="form-group">
+                                <label for="title">Title</label>
+                                <input type="text" class="form-control" id="title" name="title" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <textarea class="form-control" id="description" name="description" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="price">Price</label>
+                                <input type="number" class="form-control" id="price" name="price" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="location">Location</label>
+                                <input type="text" class="form-control" id="location" name="location" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="features">Features</label>
+                                <textarea class="form-control" id="features" name="features"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="images">Images</label>
+                                <input type="file" class="form-control" id="images" name="images">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Property</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+</div>
 
-    <!-- Modal for adding new property -->
-    <div id="addPropertyModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Add New Property</h2>
-            <form action="add_property.php" method="POST">
-                <label for="title">Title</label>
-                <input type="text" name="title" id="title" required>
-
-                <label for="description">Description</label>
-                <textarea name="description" id="description" required></textarea>
-
-                <label for="price">Price</label>
-                <input type="number" name="price" id="price" required>
-
-                <label for="location">Location</label>
-                <input type="text" name="location" id="location" required>
-
-                <label for="features">Features</label>
-                <textarea name="features" id="features"></textarea>
-
-                <label for="images">Images</label>
-                <input type="file" name="images" id="images" multiple>
-
-                <button type="submit">Add Property</button>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        var modal = document.getElementById("addPropertyModal");
-        var btn = document.getElementById("addPropertyBtn");
-        var span = document.getElementsByClassName("close")[0];
-
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
-
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
-</body>
-</html>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+            <tr>
+                <td><?php echo $row['id']; ?></td>
+                <td><?php echo $row['title']; ?></td>
+                <td><?php echo $row['description']; ?></td>
+                <td><?php echo $row['price']; ?></td>
+                <td>
+                    <a href="edit_property.php?id=<?php echo $row['id']; ?>" class="btn btn-primary">Edit</a>
+                    <a href="delete_property.php?id=<?php echo $row['id']; ?>" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        <?php } ?>
+    </tbody>
+</table>
+<?php
+include 'footer.php';
+?>
