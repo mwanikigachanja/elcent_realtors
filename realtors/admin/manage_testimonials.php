@@ -60,6 +60,7 @@ $result = mysqli_query($link, $query);
 </nav>
 <div class="container mt-5">
     <h1 class="mb-4">Manage Testimonials</h1>
+    <a href="add_testimonial.php" class="btn btn-success mb-3">Add New Testimonial</a>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -139,7 +140,7 @@ if (isset($_POST['update'])) {
     $testimonial = mysqli_real_escape_string($link, $_POST['testimonial']);
     $date = mysqli_real_escape_string($link, $_POST['date']);
 
-    $update_query = "UPDATE testimonials SET name='$name', testimonial='$testimonial', date='$date' WHERE id=$id";
+    $update_query = "UPDATE testimonials SET name='$name', testimonial='$testimonial', created_at='$date' WHERE id=$id";
     mysqli_query($link, $update_query);
     header("Location: manage_testimonials.php");
 }

@@ -21,6 +21,25 @@ $result = mysqli_query($link, $query);
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="shortcut icon" href="../images/favicon.ico" type="image/svg+xml">
     <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .modal-header, .modal-footer {
+            background-color: #343a40;
+            color: #fff;
+        }
+        .modal-footer {
+            justify-content: flex-start;
+        }
+        .btn-custom {
+            background-color: #343a40;
+            color: #fff;
+        }
+    </style>
+    <style>
         .modal-content {
             padding: 20px;
         }
@@ -60,6 +79,9 @@ $result = mysqli_query($link, $query);
 </nav>
 <div class="container mt-5">
     <h1 class="mb-4">Manage Properties</h1>
+    <button type="button" class="btn btn-custom" data-toggle="modal" data-target="#addPropertyModal">
+            Add New Property
+        </button>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -86,6 +108,60 @@ $result = mysqli_query($link, $query);
                         <button class="btn btn-danger btn-sm" onclick="confirmDelete(<?php echo $row['id']; ?>)">Delete</button>
                     </td>
                 </tr>
+
+                <!-- Add Property Modal -->
+    <div class="modal fade" id="addPropertyModal" tabindex="-1" aria-labelledby="addPropertyModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addPropertyModalLabel">Add New Property</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="add_property.php" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" class="form-control" id="title" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price</label>
+                            <input type="number" step="0.01" class="form-control" id="price" name="price" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <input type="text" class="form-control" id="location" name="location" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="features">Features</label>
+                            <textarea class="form-control" id="features" name="features" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="images">Images</label>
+                            <input type="file" class="form-control-file" id="images" name="images">
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select class="form-control" id="status" name="status" required>
+                                <option value="available">Available</option>
+                                <option value="sold">Sold</option>
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-custom">Save Property</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
                 <!-- Edit Modal -->
                 <div class="modal fade" id="editModal<?php echo $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<?php echo $row['id']; ?>" aria-hidden="true">
                     <div class="modal-dialog" role="document">

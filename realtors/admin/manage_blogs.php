@@ -20,7 +20,7 @@ $result = mysqli_query($link, $query);
     <title>Manage Blogs</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="shortcut icon" href="../images/favicon.ico" type="image/svg+xml">
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/of2uij8nurws3zvthdcqn48ectmopkgpfiekzhe0tw9ku11v/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
             selector: 'textarea.tinymce',
@@ -67,6 +67,7 @@ $result = mysqli_query($link, $query);
 </nav>
 <div class="container mt-5">
     <h1 class="mb-4">Manage Blogs</h1>
+    <a href="add_blog.php" class="btn btn-success mb-3">Add New Blog</a>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -146,7 +147,7 @@ if (isset($_POST['update'])) {
     $content = mysqli_real_escape_string($link, $_POST['content']);
     $date = mysqli_real_escape_string($link, $_POST['date']);
 
-    $update_query = "UPDATE blogs SET title='$title', content='$content', date='$date' WHERE id=$id";
+    $update_query = "UPDATE blogs SET title='$title', content='$content', updated_at='$date' WHERE id=$id";
     mysqli_query($link, $update_query);
     header("Location: manage_blogs.php");
 }
