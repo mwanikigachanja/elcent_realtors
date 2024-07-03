@@ -40,6 +40,7 @@ $total_users = mysqli_fetch_assoc($total_users_result)['count'];
     <meta charset="UTF-8">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="../images/favicon.ico" type="image/svg+xml">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">

@@ -19,6 +19,7 @@ $result = mysqli_query($link, $query);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Testimonials</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="../images/favicon.ico" type="image/svg+xml">
     <style>
         .modal-content {
             padding: 20px;

@@ -19,6 +19,7 @@ $result = mysqli_query($link, $query);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Blogs</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="../images/favicon.ico" type="image/svg+xml">
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
