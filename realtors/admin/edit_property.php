@@ -1,66 +1,95 @@
 <?php
-include('../includes/session.php');
-redirectIfNotLoggedIn();
-include('../includes/db.php');
+// edit_property.php
 
-if (isset($_GET['id'])) {
-    $id = $conn->real_escape_string($_GET['id']);
-    $result = $conn->query("SELECT * FROM properties WHERE id = '$id'");
-    $property = $result->fetch_assoc();
+// Database connection
+$servername = "localhost";
+$username = "root"; // Use your database username
+$password = ""; // Use your database password
+$dbname = "elcentre_main_app";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $title = $conn->real_escape_string($_POST['title']);
-    $description = $conn->real_escape_string($_POST['description']);
-    $price = $conn->real_escape_string($_POST['price']);
-    $location = $conn->real_escape_string($_POST['location']);
-    $features = $conn->real_escape_string($_POST['features']);
+// Check if the form was submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
+    // Collect and sanitize input data
+    $id = intval($_POST['id']);
+    $title = htmlspecialchars($_POST['title']);
+    $description = htmlspecialchars($_POST['description']);
+    $price = floatval($_POST['price']);
+    $location = htmlspecialchars($_POST['location']);
+    $features = htmlspecialchars($_POST['features']);
+    $status = htmlspecialchars($_POST['status']);
 
-    $query = "UPDATE properties SET title='$title', description='$description', price='$price', location='$location', features='$features' WHERE id='$id'";
+    // Update the property in the database
+    $sql = "UPDATE properties SET title=?, description=?, price=?, location=?, features=?, status=? WHERE id=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssdsssi", $title, $description, $price, $location, $features, $status, $id);
 
-    if ($conn->query($query) === TRUE) {
-        echo "Property updated successfully";
+    if ($stmt->execute()) {
+        echo "Property updated successfully.";
     } else {
         echo "Error updating property: " . $conn->error;
     }
+    $stmt->close();
+} else {
+    // Fetch the property data to be edited
+    if (isset($_GET['id'])) {
+        $id = intval($_GET['id']);
+        $sql = "SELECT * FROM properties WHERE id=?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $property = $result->fetch_assoc();
+        } else {
+            echo "Property not found.";
+            exit;
+        }
+        $stmt->close();
+    } else {
+        echo "Invalid request.";
+        exit;
+    }
 }
+
+$conn->close();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Property</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="path/to/your/css/styles.css"> <!-- Use your actual stylesheet path -->
 </head>
 <body>
-    <div class="container mt-5">
-        <h2 class="text-center">Edit Property</h2>
-        <form action="edit_property.php?id=<?php echo $id; ?>" method="POST">
-            <div class="form-group">
-                <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" name="title" value="<?php echo htmlspecialchars($property['title']); ?>" required>
-            </div>
-            <div class="form-group">
-                <label for="description">Description</label>
-                <textarea class="form-control" id="description" name="description" rows="5" required><?php echo htmlspecialchars($property['description']); ?></textarea>
-            </div>
-            <div class="form-group">
-                <label for="price">Price</label>
-                <input type="text" class="form-control" id="price" name="price" value="<?php echo htmlspecialchars($property['price']); ?>" required>
-            </div>
-            <div class="form-group">
-                <label for="location">Location</label>
-                <input type="text" class="form-control" id="location" name="location" value="<?php echo htmlspecialchars($property['location']); ?>" required>
-            </div>
-            <div class="form-group">
-                <label for="features">Features</label>
-                <textarea class="form-control" id="features" name="features" rows="5"><?php echo htmlspecialchars($property['features']); ?></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Update Property</button>
-        </form>
-    </div>
+    <h2>Edit Property</h2>
+    <form action="edit_property.php" method="post">
+        <input type="hidden" name="id" value="<?php echo $property['id']; ?>">
+        <label for="title">Title:</label>
+        <input type="text" name="title" value="<?php echo $property['title']; ?>" required><br>
+        <label for="description">Description:</label>
+        <textarea name="description" required><?php echo $property['description']; ?></textarea><br>
+        <label for="price">Price:</label>
+        <input type="number" step="0.01" name="price" value="<?php echo $property['price']; ?>" required><br>
+        <label for="location">Location:</label>
+        <input type="text" name="location" value="<?php echo $property['location']; ?>" required><br>
+        <label for="features">Features:</label>
+        <textarea name="features"><?php echo $property['features']; ?></textarea><br>
+        <label for="status">Status:</label>
+        <select name="status">
+            <option value="available" <?php echo ($property['status'] == 'available') ? 'selected' : ''; ?>>Available</option>
+            <option value="sold" <?php echo ($property['status'] == 'sold') ? 'selected' : ''; ?>>Sold</option>
+        </select><br>
+        <input type="submit" value="Update Property">
+    </form>
 </body>
 </html>
