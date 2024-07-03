@@ -1,18 +1,11 @@
 <?php
-// edit_property.php
+session_start();
+require 'config.php';
 
-// Database connection
-$servername = "localhost";
-$username = "root"; // Use your database username
-$password = ""; // Use your database password
-$dbname = "elcentre_main_app";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+if (!isset($_SESSION['admin_id'])) {
+    header('Location: login.php');
+    exit;
 }
 
 // Check if the form was submitted
