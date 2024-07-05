@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-session_start();
+session_start(); // Keep only one session_start at the beginning
 require_once "config.php";
 
 $username = $password = "";
@@ -36,13 +36,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
                     if (mysqli_stmt_fetch($stmt)) {
                         if (password_verify($password, $hashed_password)) {
-                            session_start();
+                            // Session variables
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
                             $_SESSION["username"] = $username;
 
+                            // Redirect to dashboard
                             header("location: index.php");
-                            exit;
+                            exit; // Ensure no further output interferes with header
                         } else {
                             $password_err = "The password you entered was not valid.";
                         }
@@ -69,19 +70,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Login</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="shortcut icon" href="../images/favicon.ico" type="image/svg+xml">
-    <style>
-        .wrapper {
-            width: 360px;
-            padding: 20px;
-            margin: 0 auto;
-        }
-        .has-error .form-control {
-            border-color: #dc3545;
-        }
-        .has-error .help-block {
-            color: #dc3545;
-        }
-    </style>
 </head>
 <body>
     <div class="wrapper">
