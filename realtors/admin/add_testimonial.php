@@ -3,7 +3,7 @@ session_start();
 require 'config.php';
 
 
-if (!isset($_SESSION['admin_id'])) {
+if (!isset($_SESSION['loggedin'])) {
     header('Location: login.php');
     exit;
 }
