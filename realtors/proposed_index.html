@@ -8,15 +8,15 @@
   <link rel="stylesheet" href="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.css">
   <link rel="shortcut icon" href="images/favicon.ico" type="image/svg+xml">
   <link rel="stylesheet" href="fonts/icomoon/style.css">
-  <link rel="stylesheet" href="assets/style.css">
-  <link rel="stylesheet" href="style.css">
+  <!--<link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="style.css">-->
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/jquery.fancybox.min.css">
   <link rel="stylesheet" href="css/owl.carousel.min.css">
   <link rel="stylesheet" href="css/owl.theme.default.min.css">
   <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
   <link rel="stylesheet" href="css/aos.css">
-  <link rel="stylesheet" href="css/style.css">
+  <!--<link rel="stylesheet" href="css/style.css">-->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,700|Oswald:400,700" rel="stylesheet">
@@ -397,7 +397,7 @@ body {
           echo '<div class="property-card">';
           echo '<figure class="card-banner">';
           echo '<a href="#">';
-          echo '<img src="images/' . $row['images'] . '" alt="' . $row['title'] . '" class="w-100">';
+          echo '<img src="images/' . $row['image'] . '" alt="' . $row['title'] . '" class="w-100">';
           echo '</a>';
           echo '<div class="card-actions">';
           echo '<button class="card-action-btn" aria-label="Bookmark">';
@@ -476,77 +476,4 @@ body {
       </ul>
     </div>
   </section>
-
-  <!-- CONTACT SECTION -->
-  <section class="contact" id="contact">
-    <div class="container">
-      <div class="contact-card">
-        <div class="card-content">
-          <p class="section-subtitle">Contact Us</p>
-          <h2 class="h2 card-title">Let's Get in Touch</h2>
-          <p class="contact-text">Feel free to reach out to us for any inquiries or assistance. We're here to help you find your perfect property.</p>
-          <ul class="contact-list">
-            <li><a href="tel:+254710791141" class="contact-link"><ion-icon name="call-outline"></ion-icon><span>+254 710 791 141</span></a></li>
-            <li><a href="mailto:info@elcentrealtors.com" class="contact-link"><ion-icon name="mail-outline"></ion-icon><span>info@elcentrealtors.com</span></a></li>
-            <li><a href="https://www.google.com/maps?q=ebby+towers+kenyatta+avenue+kitale" class="contact-link"><ion-icon name="location-outline"></ion-icon><address>Ebby Towers, 2nd Floor Room D5, Kenyatta Avenue, Kitale</address></a></li>
-          </ul>
-          <ul class="contact-social-list">
-            <li><a href="#" class="contact-social-link"><ion-icon name="logo-facebook"></ion-icon></a></li>
-            <li><a href="#" class="contact-social-link"><ion-icon name="logo-twitter"></ion-icon></a></li>
-            <li><a href="#" class="contact-social-link"><ion-icon name="logo-instagram"></ion-icon></a></li>
-            <li><a href="#" class="contact-social-link"><ion-icon name="logo-linkedin"></ion-icon></a></li>
-          </ul>
-        </div>
-        <figure class="card-banner"><img src="images/elcent building.jpg" alt="Contact Us"></figure>
-      </div>
-    </div>
-  </section>
-
-   <!-- FOOTER -->
-   <footer class="footer">
-    <div class="container">
-      <div class="footer-top">
-        <div class="footer-brand"><a href="#" class="logo"><img src="images/ELCENT-logo-001.jpg" alt="Elcent Realtors"></a>
-          <p class="footer-text">The Leading Legit Property Dealer in Kenya.</p>
-          <ul class="contact-list">
-            <li><a href="tel:+254710791141" class="contact-link"><ion-icon name="call-outline"></ion-icon><span>+254 710 791 141</span></a></li>
-            <li><a href="mailto:info@elcentrealtors.com" class="contact-link"><ion-icon name="mail-outline"></ion-icon><span>info@elcentrealtors.com</span></a></li>
-            <li><a href="https://www.google.com/maps?q=ebby+towers+kenyatta+avenue+kitale" class="contact-link"><ion-icon name="location-outline"></ion-icon><address>Ebby Towers, 2nd Floor Room D5, Kenyatta Avenue, Kitale</address></a></li>
-          </ul>
-        </div>
-        <div class="footer-links">
-          <ul class="footer-list">
-            <li><a href="#home" class="footer-link">Home</a></li>
-            <li><a href="#about" class="footer-link">About</a></li>
-            <li><a href="#service" class="footer-link">Service</a></li>
-            <li><a href="#property" class="footer-link">Property</a></li>
-            <li><a href="#blog" class="footer-link">Blog</a></li>
-            <li><a href="#contact" class="footer-link">Contact</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom"><p class="copyright">&copy; 2024 Elcent Realtors. All Rights Reserved.</p></div>
-    </div>
-  </footer>
-
-  <!-- BACK TO TOP -->
-  <a href="#top" class="back-top" aria-label="Back to Top"><ion-icon name="chevron-up-outline"></ion-icon></a>
-
-  <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-  <script src="js/jquery-3.3.1.min.js"></script>
-  <script src="js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="js/jquery-ui.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.stellar.min.js"></script>
-  <script src="js/jquery.countdown.min.js"></script>
-  <script src="js/bootstrap-datepicker.min.js"></script>
-  <script src="js/jquery.easing.1.3.js"></script>
-  <script src="js/aos.js"></script>
-  <script src="js/jquery.fancybox.min.js"></script>
-  <script src="js/jquery.sticky.js"></script>
-  <script src="js/main.js"></script>
-</div>
-</body>
-</html>
+        
