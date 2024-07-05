@@ -1,3 +1,19 @@
+<?php
+include 'admin/config.php'; // Include database connection
+
+// Fetch properties
+$properties_sql = "SELECT * FROM properties WHERE status='available'";
+$properties_result = mysqli_query($link, $properties_sql);
+
+// Fetch testimonials
+$testimonials_sql = "SELECT * FROM testimonials";
+$testimonials_result = mysqli_query($link, $testimonials_sql);
+
+// Fetch blogs
+$blogs_sql = "SELECT * FROM blogs WHERE status='published'";
+$blogs_result = mysqli_query($link, $blogs_sql);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,8 +24,7 @@
   <link rel="stylesheet" href="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.css">
   <link rel="shortcut icon" href="images/favicon.ico" type="image/svg+xml">
   <link rel="stylesheet" href="fonts/icomoon/style.css">
-  <link rel="stylesheet" href="assets/style.css">
-
+  <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/jquery.fancybox.min.css">
   <link rel="stylesheet" href="css/owl.carousel.min.css">
@@ -17,7 +32,6 @@
   <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
   <link rel="stylesheet" href="css/aos.css">
   <link rel="stylesheet" href="css/style.css">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,700|Oswald:400,700" rel="stylesheet">
@@ -42,282 +56,297 @@
       <div class="site-mobile-menu-body"></div>
     </div>
 
-  <!-- HEADER -->
-  <header class="header" data-header>
-    <div class="overlay" data-overlay></div>
-    <div class="header-top">
-      <div class="container">
-        <ul class="header-top-list">
-          <li>
-            <a href="mailto:info@elcentrealtors.com" class="header-top-link">
-              <ion-icon name="mail-outline"></ion-icon>
-              <span>info@elcentrealtors.com</span>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="header-top-link">
-              <ion-icon name="location-outline"></ion-icon>
-              <address>Ebby Towers, 2nd Floor Room D5, Kenyatta Avenue, Kitale</address>
-            </a>
-          </li>
-        </ul>
-        <div class="wrapper">
-          <ul class="header-top-social-list">
-            <li><a href="#" class="header-top-social-link"><ion-icon name="logo-facebook"></ion-icon></a></li>
-            <li><a href="#" class="header-top-social-link"><ion-icon name="logo-twitter"></ion-icon></a></li>
-            <li><a href="#" class="header-top-social-link"><ion-icon name="logo-instagram"></ion-icon></a></li>
-            <li><a href="#" class="header-top-social-link"><ion-icon name="logo-pinterest"></ion-icon></a></li>
+    <!-- HEADER -->
+    <header class="header" data-header>
+      <div class="overlay" data-overlay></div>
+      <div class="header-top">
+        <div class="container">
+          <ul class="header-top-list">
+            <li>
+              <a href="mailto:info@elcentrealtors.com" class="header-top-link">
+                <ion-icon name="mail-outline"></ion-icon>
+                <span>info@elcentrealtors.com</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="header-top-link">
+                <ion-icon name="location-outline"></ion-icon>
+                <address>Ebby Towers, 2nd Floor Room D5, Kenyatta Avenue, Kitale</address>
+              </a>
+            </li>
           </ul>
-          <button class="header-top-btn">Login</button>
+          <div class="wrapper">
+            <ul class="header-top-social-list">
+              <li><a href="#" class="header-top-social-link"><ion-icon name="logo-facebook"></ion-icon></a></li>
+              <li><a href="#" class="header-top-social-link"><ion-icon name="logo-twitter"></ion-icon></a></li>
+              <li><a href="#" class="header-top-social-link"><ion-icon name="logo-instagram"></ion-icon></a></li>
+              <li><a href="#" class="header-top-social-link"><ion-icon name="logo-pinterest"></ion-icon></a></li>
+            </ul>
+            <button class="header-top-btn">Login</button>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="header-bottom">
-      <div class="container" height="100" weight="100%">
-        <a href="index.html" class="logo"><img src="images/ELCENT-logo-001.jpg" alt="Homeverse logo" width="200" height="50"></a>
-        <nav class="navbar" data-navbar>
-          <div class="navbar-top">
-            <a href="#" class="logo"><img src="images/ELCENT-logo-001.jpg" alt="Homeverse logo" width="200" height="50"></a>
-            <button class="nav-close-btn" data-nav-close-btn aria-label="Close Menu"><ion-icon name="close-outline"></ion-icon></button>
+      <div class="header-bottom">
+        <div class="container" height="100" weight="100%">
+          <a href="index.html" class="logo"><img src="images/ELCENT-logo-001.jpg" alt="Homeverse logo" width="200" height="50"></a>
+          <nav class="navbar" data-navbar>
+            <div class="navbar-top">
+              <a href="#" class="logo"><img src="images/ELCENT-logo-001.jpg" alt="Homeverse logo" width="200" height="50"></a>
+              <button class="nav-close-btn" data-nav-close-btn aria-label="Close Menu"><ion-icon name="close-outline"></ion-icon></button>
+            </div>
+            <div class="navbar-bottom">
+              <ul class="navbar-list">
+                <li><a href="#home" class="navbar-link" data-nav-link>Home</a></li>
+                <li><a href="#about" class="navbar-link" data-nav-link>About</a></li>
+                <li><a href="#service" class="navbar-link" data-nav-link>Service</a></li>
+                <li><a href="#property" class="navbar-link" data-nav-link>Property</a></li>
+                <li><a href="#blog" class="navbar-link" data-nav-link>Blog</a></li>
+                <li><a href="#contact" class="navbar-link" data-nav-link>Contact</a></li>
+              </ul>
+            </div>
+          </nav>
+          <div class="header-bottom-actions">
+            <button class="header-bottom-actions-btn" aria-label="Search"><ion-icon name="search-outline"></ion-icon><span>Search</span></button>
+            <button class="header-bottom-actions-btn" aria-label="Profile"><ion-icon name="person-outline"></ion-icon><span>Profile</span></button>
+            <button class="header-bottom-actions-btn" aria-label="Cart"><ion-icon name="cart-outline"></ion-icon><span>Cart</span></button>
+            <button class="header-bottom-actions-btn" data-nav-open-btn aria-label="Open Menu"><ion-icon name="menu-outline"></ion-icon><span>Menu</span></button>
           </div>
-          <div class="navbar-bottom">
-            <ul class="navbar-list">
-              <li><a href="#home" class="navbar-link" data-nav-link>Home</a></li>
-              <li><a href="#about" class="navbar-link" data-nav-link>About</a></li>
-              <li><a href="#service" class="navbar-link" data-nav-link>Service</a></li>
-              <li><a href="#property" class="navbar-link" data-nav-link>Property</a></li>
-              <li><a href="#blog" class="navbar-link" data-nav-link>Blog</a></li>
-              <li><a href="#contact" class="navbar-link" data-nav-link>Contact</a></li>
-            </ul>
-          </div>
-        </nav>
-        <div class="header-bottom-actions">
-          <button class="header-bottom-actions-btn" aria-label="Search"><ion-icon name="search-outline"></ion-icon><span>Search</span></button>
-          <button class="header-bottom-actions-btn" aria-label="Profile"><ion-icon name="person-outline"></ion-icon><span>Profile</span></button>
-          <button class="header-bottom-actions-btn" aria-label="Cart"><ion-icon name="cart-outline"></ion-icon><span>Cart</span></button>
-          <button class="header-bottom-actions-btn" data-nav-open-btn aria-label="Open Menu"><ion-icon name="menu-outline"></ion-icon><span>Menu</span></button>
         </div>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <main>
-    <article>
-      <!-- HERO SECTION -->
-      <section class="hero" id="home">
-        <div class="container">
-          <div class="hero-content">
-            <p class="hero-subtitle">
-              <ion-icon name="home"></ion-icon>
-              <span>Legit Property Deals</span>
-            </p>
-            <h2 class="h1 hero-title">Find Your Property Through Us</h2>
-            <p class="hero-text">Legit property deals: be it your dream home or a piece of land for your project. We are here to help you.</p>
-            <button class="btn">Make An Enquiry</button>
+    <main>
+      <article>
+        <!-- HERO SECTION -->
+        <section class="hero" id="home">
+          <div class="container">
+            <div class="hero-content">
+              <p class="hero-subtitle">
+                <ion-icon name="home"></ion-icon>
+                <span>Legit Property Deals</span>
+              </p>
+              <h2 class="h1 hero-title">Find Your Property Through Us</h2>
+              <p class="hero-text">Legit property deals: be it your dream home or a piece of land for your project. We are here to help you.</p>
+              <button class="btn">Make An Enquiry</button>
+            </div>
+            <figure class="hero-banner">
+              <img src="images/elcent home.jpg" alt="Modern house model" class="w-100">
+            </figure>
           </div>
-          <figure class="hero-banner">
-            <img src="images/elcent home.jpg" alt="Modern house model" class="w-100">
-          </figure>
-        </div>
-      </section>
+        </section>
 
-      <!-- ABOUT SECTION -->
-      <section class="about" id="about">
-        <div class="container">
-          <figure class="about-banner">
-            <img src="images/elcent plot 2.jpg" alt="Valuable Plots">
-            <img src="images/elcent estates.jpg" alt="Secure Estates" class="abs-img">
-          </figure>
-          <div class="about-content">
-            <p class="section-subtitle">About Us</p>
-            <h2 class="h2 section-title">The Leading Legit Property Dealer in Kenya.</h2>
-            <p class="about-text">ELCENT REALTORS is a leading legit property dealer in Kenya with an impeccable record of providing real estate services and property management to clients with varied needs.</p>
-            <ul class="about-list">
-              <li class="about-item">
-                <div class="about-item-icon"><ion-icon name="home-outline"></ion-icon></div>
-                <p class="about-item-text">Trusted property sales.</p>
-              </li>
-              <li class="about-item">
-                <div class="about-item-icon"><ion-icon name="business-outline"></ion-icon></div>
-                <p class="about-item-text">Reliable property management.</p>
-              </li>
-              <li class="about-item">
-                <div class="about-item-icon"><ion-icon name="business-outline"></ion-icon></div>
-                <p class="about-item-text">Professionalism and integrity.</p>
-              </li>
-            </ul>
-            <button class="btn">Learn More</button>
+        <!-- ABOUT SECTION -->
+        <section class="about" id="about">
+          <div class="container">
+            <figure class="about-banner">
+              <img src="images/elcent plot 2.jpg" alt="Valuable Plots">
+              <img src="images/elcent estates.jpg" alt="Secure Estates" class="abs-img">
+            </figure>
+            <div class="about-content">
+              <p class="section-subtitle">About Us</p>
+              <h2 class="h2 section-title">The Leading Legit Property Dealer in Kenya.</h2>
+              <p class="about-text">ELCENT REALTORS is a leading legit property dealer in Kenya with an impeccable record of providing real estate services and property management to clients with varied needs.</p>
+              <ul class="about-list">
+                <li class="about-item">
+                  <div class="about-item-icon"><ion-icon name="home-outline"></ion-icon></div>
+                  <p class="about-item-text">Trusted property sales.</p>
+                </li>
+                <li class="about-item">
+                  <div class="about-item-icon"><ion-icon name="location-outline"></ion-icon></div>
+                  <p class="about-item-text">Prime property locations.</p>
+                </li>
+                <li class="about-item">
+                  <div class="about-item-icon"><ion-icon name="shield-checkmark-outline"></ion-icon></div>
+                  <p class="about-item-text">Secure deals and transactions.</p>
+                </li>
+              </ul>
+              <button class="btn">Learn More</button>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- SERVICE SECTION -->
-      <section class="service" id="service">
-        <div class="container">
-          <p class="section-subtitle">Our Services</p>
-          <h2 class="h2 section-title">What We Offer</h2>
-          <ul class="service-list">
-            <li class="service-item">
-              <div class="service-card">
+        <!-- SERVICE SECTION -->
+        <section class="service" id="service">
+          <div class="container">
+            <p class="section-subtitle">Our Services</p>
+            <h2 class="h2 section-title">Explore Our Services</h2>
+            <ul class="service-list">
+              <li><a href="#" class="service-card">
                 <div class="card-icon"><ion-icon name="home-outline"></ion-icon></div>
                 <h3 class="h3 card-title">Property Sales</h3>
-                <p class="card-text">We provide the best deals on property sales in Kenya. Our portfolio includes a wide range of properties to suit your needs.</p>
-              </div>
-            </li>
-            <li class="service-item">
-              <div class="service-card">
+                <p class="card-text">We provide the best property deals available in the market, ensuring our clients get value for their investments.</p>
+                <span class="card-link">Read More</span>
+              </a></li>
+              <li><a href="#" class="service-card">
                 <div class="card-icon"><ion-icon name="business-outline"></ion-icon></div>
                 <h3 class="h3 card-title">Property Management</h3>
-                <p class="card-text">Our property management services ensure that your property is well taken care of, maximizing its value and ensuring tenant satisfaction.</p>
-              </div>
-            </li>
-            <li class="service-item">
-              <div class="service-card">
-                <div class="card-icon"><ion-icon name="business-outline"></ion-icon></div>
+                <p class="card-text">We offer property management services that guarantee a stress-free ownership experience.</p>
+                <span class="card-link">Read More</span>
+              </a></li>
+              <li><a href="#" class="service-card">
+                <div class="card-icon"><ion-icon name="shield-checkmark-outline"></ion-icon></div>
                 <h3 class="h3 card-title">Consultation</h3>
-                <p class="card-text">We offer professional consultation services to help you make informed decisions about your property investments.</p>
+                <p class="card-text">Get expert advice and consultation on the best property investments tailored to your needs.</p>
+                <span class="card-link">Read More</span>
+              </a></li>
+              <li><a href="#" class="service-card">
+                <div class="card-icon"><ion-icon name="location-outline"></ion-icon></div>
+                <h3 class="h3 card-title">Prime Locations</h3>
+                <p class="card-text">We offer properties in prime locations that ensure maximum returns on investment.</p>
+                <span class="card-link">Read More</span>
+              </a></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- PROPERTY SECTION -->
+        <section class="property" id="property">
+          <div class="container">
+            <p class="section-subtitle">Property</p>
+            <h2 class="h2 section-title">Featured Properties</h2>
+            <ul class="property-list">
+              <?php while ($property = mysqli_fetch_assoc($properties_result)): ?>
+              <li><div class="property-card">
+                <figure class="card-banner"><a href="#"><img src="images/<?php echo $property['image']; ?>" alt="<?php echo $property['name']; ?>"></a>
+                  <div class="card-badge green">For Sale</div>
+                  <div class="banner-actions">
+                    <button class="banner-actions-btn"><ion-icon name="location"></ion-icon><span><?php echo $property['location']; ?></span></button>
+                    <button class="banner-actions-btn"><ion-icon name="camera"></ion-icon><span>4</span></button>
+                    <button class="banner-actions-btn"><ion-icon name="expand"></ion-icon><span><?php echo $property['size']; ?>m²</span></button>
+                  </div>
+                </figure>
+                <div class="card-content">
+                  <div class="card-price">
+                    <div class="card-price-amount"><strong>Ksh <?php echo $property['price']; ?></strong></div>
+                  </div>
+                  <h3 class="h3 card-title"><a href="#"><?php echo $property['name']; ?></a></h3>
+                  <p class="card-text"><?php echo $property['description']; ?></p>
+                  <ul class="card-list">
+                    <li class="card-item"><strong><?php echo $property['bedrooms']; ?></strong><ion-icon name="bed-outline"></ion-icon><span>Bedrooms</span></li>
+                    <li class="card-item"><strong><?php echo $property['bathrooms']; ?></strong><ion-icon name="man-outline"></ion-icon><span>Bathrooms</span></li>
+                    <li class="card-item"><strong><?php echo $property['parking']; ?></strong><ion-icon name="car-outline"></ion-icon><span>Parking</span></li>
+                  </ul>
+                  <div class="card-meta"><div><ion-icon name="person-outline"></ion-icon><p><?php echo $property['agent']; ?></p></div><div><ion-icon name="time-outline"></ion-icon><p>2 months ago</p></div></div>
+                </div>
+              </div></li>
+              <?php endwhile; ?>
+            </ul>
+          </div>
+        </section>
+
+        <!-- TESTIMONIALS SECTION -->
+        <section class="testimonials" id="testimonials">
+          <div class="container">
+            <p class="section-subtitle">Testimonials</p>
+            <h2 class="h2 section-title">What Our Clients Say</h2>
+            <ul class="testimonials-list">
+              <?php while ($testimonial = mysqli_fetch_assoc($testimonials_result)): ?>
+              <li class="testimonial-item"><div class="testimonial-card">
+                <figure class="testimonial-banner"><img src="images/<?php echo $testimonial['client_image']; ?>" alt="<?php echo $testimonial['client_name']; ?>"></figure>
+                <p class="testimonial-text"><?php echo $testimonial['testimonial']; ?></p>
+                <div class="testimonial-client"><h4 class="h4 client-name"><?php echo $testimonial['client_name']; ?></h4><p class="client-title"><?php echo $testimonial['client_title']; ?></p></div>
+              </div></li>
+              <?php endwhile; ?>
+            </ul>
+          </div>
+        </section>
+
+        <!-- BLOG SECTION -->
+        <section class="blog" id="blog">
+          <div class="container">
+            <p class="section-subtitle">Blog</p>
+            <h2 class="h2 section-title">Latest News & Updates</h2>
+            <ul class="blog-list">
+              <?php while ($blog = mysqli_fetch_assoc($blogs_result)): ?>
+              <li><div class="blog-card">
+                <figure class="card-banner"><a href="#"><img src="images/<?php echo $blog['image']; ?>" alt="<?php echo $blog['title']; ?>"></a></figure>
+                <div class="card-content">
+                  <h3 class="h3 card-title"><a href="#"><?php echo $blog['title']; ?></a></h3>
+                  <p class="card-text"><?php echo $blog['excerpt']; ?></p>
+                  <div class="card-meta">
+                    <div><ion-icon name="person-outline"></ion-icon><p><?php echo $blog['author']; ?></p></div>
+                    <div><ion-icon name="time-outline"></ion-icon><p><?php echo $blog['date']; ?></p></div>
+                    <div><ion-icon name="chatbubble-outline"></ion-icon><p><?php echo $blog['comments_count']; ?></p></div>
+                  </div>
+                </div>
+              </div></li>
+              <?php endwhile; ?>
+            </ul>
+          </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section class="contact" id="contact">
+          <div class="container">
+            <div class="contact-card">
+              <div class="card-content">
+                <p class="section-subtitle">Contact Us</p>
+                <h2 class="h2 card-title">Let's Get in Touch</h2>
+                <p class="contact-text">Feel free to reach out to us for any inquiries or assistance. We're here to help you find your perfect property.</p>
+                <ul class="contact-list">
+                  <li><a href="tel:+254710791141" class="contact-link"><ion-icon name="call-outline"></ion-icon><span>+254 710 791 141</span></a></li>
+                  <li><a href="mailto:info@elcentrealtors.com" class="contact-link"><ion-icon name="mail-outline"></ion-icon><span>info@elcentrealtors.com</span></a></li>
+                  <li><a href="https://www.google.com/maps?q=ebby+towers+kenyatta+avenue+kitale" class="contact-link"><ion-icon name="location-outline"></ion-icon><address>Ebby Towers, 2nd Floor Room D5, Kenyatta Avenue, Kitale</address></a></li>
+                </ul>
+                <ul class="contact-social-list">
+                  <li><a href="#" class="contact-social-link"><ion-icon name="logo-facebook"></ion-icon></a></li>
+                  <li><a href="#" class="contact-social-link"><ion-icon name="logo-twitter"></ion-icon></a></li>
+                  <li><a href="#" class="contact-social-link"><ion-icon name="logo-instagram"></ion-icon></a></li>
+                  <li><a href="#" class="contact-social-link"><ion-icon name="logo-linkedin"></ion-icon></a></li>
+                </ul>
               </div>
-            </li>
-          </ul>
-        </div>
-      </section>
+              <figure class="card-banner"><img src="images/elcent building.jpg" alt="Contact Us"></figure>
+            </div>
+          </div>
+        </section>
+      </article>
+    </main>
 
-      <section class="property" id="property">
-        <div class="container">
-          <p class="section-subtitle">Properties</p>
-          <h2 class="h2 section-title">Featured Listings</h2>
-          <ul class="property-list" id="property-list">
-            <!-- Property items will be inserted here by JavaScript -->
-          </ul>
-          <a href="#" class="btn">Browse All Properties</a>
-        </div>
-      </section>
-    
-      <!-- BLOG SECTION -->
-      <section class="blog" id="blog">
-        <div class="container">
-          <p class="section-subtitle">Blogs & News</p>
-          <h2 class="h2 section-title">Latest News Feeds</h2>
-          <ul class="blog-list" id="blog-list">
-            <!-- Blog items will be inserted here by JavaScript -->
-          </ul>
-          <a href="#" class="btn">View All Blogs</a>
-        </div>
-      </section>
-    
-      <!-- TESTIMONIAL SECTION -->
-      <section class="testimonial">
-        <div class="container">
-          <h2 class="h2 section-title">Our Clients Say</h2>
-          <ul class="testimonial-list" id="testimonial-list">
-            <!-- Testimonial items will be inserted here by JavaScript -->
-          </ul>
-        </div>
-      </section>
-    </article>
-  </main>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-top">
+    <!-- FOOTER -->
+    <footer class="footer">
       <div class="container">
-        <div class="footer-brand">
-          <a href="#" class="logo"><img src="images/ELCENT-logo-001.jpg" alt="Homeverse logo"></a>
-          <p class="footer-text">Your Journey to Homeownership Starts Here. At Elcent Realtors, we turn dreams into reality with integrity, excellence, and innovation. Connect with us and discover the difference.</p>
-          <ul class="footer-social-list">
-            <li><a href="#" class="footer-social-link"><ion-icon name="logo-facebook"></ion-icon></a></li>
-            <li><a href="#" class="footer-social-link"><ion-icon name="logo-twitter"></ion-icon></a></li>
-            <li><a href="#" class="footer-social-link"><ion-icon name="logo-instagram"></ion-icon></a></li>
-            <li><a href="#" class="footer-social-link"><ion-icon name="logo-pinterest"></ion-icon></a></li>
-          </ul>
+        <div class="footer-top">
+          <div class="footer-brand"><a href="#" class="logo"><img src="images/ELCENT-logo-001.jpg" alt="Elcent Realtors"></a>
+            <p class="footer-text">The Leading Legit Property Dealer in Kenya.</p>
+            <ul class="contact-list">
+              <li><a href="tel:+254710791141" class="contact-link"><ion-icon name="call-outline"></ion-icon><span>+254 710 791 141</span></a></li>
+              <li><a href="mailto:info@elcentrealtors.com" class="contact-link"><ion-icon name="mail-outline"></ion-icon><span>info@elcentrealtors.com</span></a></li>
+              <li><a href="https://www.google.com/maps?q=ebby+towers+kenyatta+avenue+kitale" class="contact-link"><ion-icon name="location-outline"></ion-icon><address>Ebby Towers, 2nd Floor Room D5, Kenyatta Avenue, Kitale</address></a></li>
+            </ul>
+          </div>
+          <div class="footer-links">
+            <ul class="footer-list">
+              <li><a href="#home" class="footer-link">Home</a></li>
+              <li><a href="#about" class="footer-link">About</a></li>
+              <li><a href="#service" class="footer-link">Service</a></li>
+              <li><a href="#property" class="footer-link">Property</a></li>
+              <li><a href="#blog" class="footer-link">Blog</a></li>
+              <li><a href="#contact" class="footer-link">Contact</a></li>
+            </ul>
+          </div>
         </div>
-        <div class="footer-link-box">
-          <ul class="footer-list">
-            <li><p class="footer-list-title">Company</p></li>
-            <li><a href="#" class="footer-link">About Us</a></li>
-            <li><a href="#" class="footer-link">Our Services</a></li>
-            <li><a href="#" class="footer-link">Pricing Plan</a></li>
-            <li><a href="#" class="footer-link">Meet Our Agents</a></li>
-          </ul>
-          <ul class="footer-list">
-            <li><p class="footer-list-title">Contact Us</p></li>
-            <li><a href="mailto:info@elcentrealtors.com" class="footer-link">info@elcentrealtors.com</a></li>
-            <li><a href="#" class="footer-link">+254 717 388 544</a></li>
-            <li><a href="#" class="footer-link">Ebby Towers, 2nd Floor Room D5, Kenyatta Avenue, Kitale</a></li>
-          </ul>
-        </div>
+        <div class="footer-bottom"><p class="copyright">&copy; 2024 Elcent Realtors. All Rights Reserved.</p></div>
       </div>
-    </div>
-    <div class="footer-bottom">
-      <div class="container">
-        <p class="copyright">&copy; <script>document.write(new Date().getFullYear());</script> <a href="#">ELCENT REALTORS</a>. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
+    </footer>
 
-  <script src="js/jquery-3.3.1.min.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.sticky.js"></script>
-  <script src="js/jquery.waypoints.min.js"></script>
-  <script src="js/jquery.animateNumber.min.js"></script>
-  <script src="js/jquery.fancybox.min.js"></script>
-  <script src="js/jquery.easing.1.3.js"></script>
-  <script src="js/aos.js"></script>
-  <script src="js/main.js"></script>
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <!-- BACK TO TOP -->
+    <a href="#top" class="back-top" aria-label="Back to Top"><ion-icon name="chevron-up-outline"></ion-icon></a>
 
-  <script>
-    $(document).ready(function() {
-      $.get('fetch_data.php', function(data) {
-        // Populate properties
-        const propertyList = $('#property-list');
-        data.properties.forEach(property => {
-          propertyList.append(`
-            <li>
-              <div class="property-card">
-                <img src="${property.images}" alt="${property.title}">
-                <h3 class="property-title">${property.title}</h3>
-                <p class="property-description">${property.description}</p>
-                <p class="property-price">${property.price}</p>
-                <p class="property-location">${property.location}</p>
-              </div>
-            </li>
-          `);
-        });
-
-        // Populate testimonials
-        const testimonialList = $('#testimonial-list');
-        data.testimonials.forEach(testimonial => {
-          testimonialList.append(`
-            <li>
-              <div class="testimonial-card">
-                <h3 class="testimonial-name">${testimonial.name}</h3>
-                <p class="testimonial-text">${testimonial.testimonial}</p>
-              </div>
-            </li>
-          `);
-        });
-
-        // Populate blogs
-        const blogList = $('#blog-list');
-        data.blogs.forEach(blog => {
-          blogList.append(`
-            <li>
-              <div class="blog-card">
-                <img src="${blog.image}" alt="${blog.title}">
-                <h3 class="blog-title">${blog.title}</h3>
-                <p class="blog-content">${blog.content}</p>
-                <a href="blog_details.php?id=${blog.id}" class="blog-link">Read More</a>
-              </div>
-            </li>
-          `);
-        });
-      });
-    });
-  </script>
-
+    <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/jquery.countdown.min.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/jquery.fancybox.min.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/main.js"></script>
+  </div>
 </body>
 </html>
