@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include 'admin/config.php';
 
 $query = "SELECT * FROM blogs";
 $result = mysqli_query($conn, $query);

@@ -1,3 +1,19 @@
+<?php
+include 'admin/config.php'; // Include database connection
+
+// Fetch properties
+$properties_sql = "SELECT * FROM properties WHERE status='available'";
+$properties_result = mysqli_query($link, $properties_sql);
+
+// Fetch testimonials
+$testimonials_sql = "SELECT * FROM testimonials";
+$testimonials_result = mysqli_query($link, $testimonials_sql);
+
+// Fetch blogs
+$blogs_sql = "SELECT * FROM blogs WHERE status='published'";
+$blogs_result = mysqli_query($link, $blogs_sql);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -182,142 +198,169 @@
         </div>
       </section>
 
+      <!-- PROPERTY SECTION -->
       <section class="property" id="property">
         <div class="container">
-          <p class="section-subtitle">Properties</p>
-          <h2 class="h2 section-title">Featured Listings</h2>
+          <p class="section-subtitle">Featured Properties</p>
+          <h2 class="h2 section-title">Our Latest Properties</h2>
           <ul class="property-list" id="property-list">
-            <!-- Property items will be inserted here by JavaScript -->
+            <!-- Properties Section -->
+    <div class="properties-section">
+        <?php while ($property = mysqli_fetch_assoc($properties_result)) { ?>
+            <div class="property-card">
+                <h3><?php echo $property['title']; ?></h3>
+                <p><?php echo $property['description']; ?></p>
+                <p>Price: <?php echo $property['price']; ?></p>
+                <p>Location: <?php echo $property['location']; ?></p>
+                <p>Category: <?php echo $property['category']; ?></p>
+                <p>Type: <?php echo $property['type']; ?></p>
+                <p>Tags: <?php echo $property['tags']; ?></p>
+                <a href="<?php echo $property['video_link']; ?>" target="_blank">Video Tour</a>
+            </div>
+        <?php } ?>
+    </div>
           </ul>
-          <a href="#" class="btn">Browse All Properties</a>
         </div>
       </section>
-    
+
+      <!-- TESTIMONIAL SECTION -->
+      <section class="testimonial" id="testimonial">
+        <div class="container">
+          <p class="section-subtitle">Testimonials</p>
+          <h2 class="h2 section-title">What Our Clients Say</h2>
+          <ul class="testimonial-list" id="testimonial-list">
+            <!-- Testimonials Section -->
+    <div class="testimonials-section">
+        <?php while ($testimonial = mysqli_fetch_assoc($testimonials_result)) { ?>
+            <div class="testimonial-card">
+                <p><?php echo $testimonial['testimonial']; ?></p>
+                <p>- <?php echo $testimonial['name']; ?>, <?php echo $testimonial['position']; ?></p>
+            </div>
+        <?php } ?>
+    </div>
+          </ul>
+        </div>
+      </section>
+
       <!-- BLOG SECTION -->
       <section class="blog" id="blog">
         <div class="container">
-          <p class="section-subtitle">Blogs & News</p>
-          <h2 class="h2 section-title">Latest News Feeds</h2>
+          <p class="section-subtitle">Blog & News</p>
+          <h2 class="h2 section-title">Latest News & Articles</h2>
           <ul class="blog-list" id="blog-list">
-            <!-- Blog items will be inserted here by JavaScript -->
-          </ul>
-          <a href="#" class="btn">View All Blogs</a>
-        </div>
-      </section>
-    
-      <!-- TESTIMONIAL SECTION -->
-      <section class="testimonial">
-        <div class="container">
-          <h2 class="h2 section-title">Our Clients Say</h2>
-          <ul class="testimonial-list" id="testimonial-list">
-            <!-- Testimonial items will be inserted here by JavaScript -->
+           <!-- Blogs Section -->
+    <div class="blogs-section">
+        <?php while ($blog = mysqli_fetch_assoc($blogs_result)) { ?>
+            <div class="blog-card">
+                <h3><?php echo $blog['title']; ?></h3>
+                <p><?php echo $blog['content']; ?></p>
+                <p>Author: <?php echo $blog['author']; ?></p>
+                <p>Published: <?php echo $blog['created_at']; ?></p>
+            </div>
+        <?php } ?>
+    </div>
           </ul>
         </div>
       </section>
     </article>
   </main>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-top">
-      <div class="container">
-        <div class="footer-brand">
-          <a href="#" class="logo"><img src="images/ELCENT-logo-001.jpg" alt="Homeverse logo"></a>
-          <p class="footer-text">Your Journey to Homeownership Starts Here. At Elcent Realtors, we turn dreams into reality with integrity, excellence, and innovation. Connect with us and discover the difference.</p>
-          <ul class="footer-social-list">
-            <li><a href="#" class="footer-social-link"><ion-icon name="logo-facebook"></ion-icon></a></li>
-            <li><a href="#" class="footer-social-link"><ion-icon name="logo-twitter"></ion-icon></a></li>
-            <li><a href="#" class="footer-social-link"><ion-icon name="logo-instagram"></ion-icon></a></li>
-            <li><a href="#" class="footer-social-link"><ion-icon name="logo-pinterest"></ion-icon></a></li>
-          </ul>
-        </div>
-        <div class="footer-link-box">
-          <ul class="footer-list">
-            <li><p class="footer-list-title">Company</p></li>
-            <li><a href="#" class="footer-link">About Us</a></li>
-            <li><a href="#" class="footer-link">Our Services</a></li>
-            <li><a href="#" class="footer-link">Pricing Plan</a></li>
-            <li><a href="#" class="footer-link">Meet Our Agents</a></li>
-          </ul>
-          <ul class="footer-list">
-            <li><p class="footer-list-title">Contact Us</p></li>
-            <li><a href="mailto:info@elcentrealtors.com" class="footer-link">info@elcentrealtors.com</a></li>
-            <li><a href="#" class="footer-link">+254 717 388 544</a></li>
-            <li><a href="#" class="footer-link">Ebby Towers, 2nd Floor Room D5, Kenyatta Avenue, Kitale</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div class="container">
-        <p class="copyright">&copy; <script>document.write(new Date().getFullYear());</script> <a href="#">ELCENT REALTORS</a>. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
-
-  <script src="js/jquery-3.3.1.min.js"></script>
-  <script src="js/popper.min.js"></script>
+  <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
   <script src="js/bootstrap.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.sticky.js"></script>
-  <script src="js/jquery.waypoints.min.js"></script>
-  <script src="js/jquery.animateNumber.min.js"></script>
+  <script src="js/jquery-3.6.0.min.js"></script>
   <script src="js/jquery.fancybox.min.js"></script>
-  <script src="js/jquery.easing.1.3.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
   <script src="js/aos.js"></script>
-  <script src="js/main.js"></script>
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
+  <script src="js/script.js"></script>
   <script>
-    $(document).ready(function() {
-      $.get('fetch_data.php', function(data) {
-        // Populate properties
-        const propertyList = $('#property-list');
-        data.properties.forEach(property => {
-          propertyList.append(`
-            <li>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Fetch properties
+      fetch('fetch_properties.php')
+        .then(response => response.json())
+        .then(data => {
+          const propertyList = document.getElementById('property-list');
+          data.forEach(property => {
+            const li = document.createElement('li');
+            li.className = 'property-item';
+            li.innerHTML = `
               <div class="property-card">
-                <img src="${property.images}" alt="${property.title}">
-                <h3 class="property-title">${property.title}</h3>
-                <p class="property-description">${property.description}</p>
-                <p class="property-price">${property.price}</p>
-                <p class="property-location">${property.location}</p>
-              </div>
-            </li>
-          `);
+                <figure class="card-banner">
+                  <a href="property-details.html?id=${property.id}">
+                    <img src="${property.image}" alt="${property.title}">
+                  </a>
+                </figure>
+                <div class="card-content">
+                  <div class="card-price">
+                    <strong>KES ${property.price}</strong>
+                  </div>
+                  <h3 class="h3 card-title">
+                    <a href="property-details.html?id=${property.id}">${property.title}</a>
+                  </h3>
+                  <ul class="card-list">
+                    <li class="card-item"><strong>${property.bedrooms}</strong> <ion-icon name="bed-outline"></ion-icon></li>
+                    <li class="card-item"><strong>${property.bathrooms}</strong> <ion-icon name="bathroom-outline"></ion-icon></li>
+                    <li class="card-item"><strong>${property.size}</strong> <ion-icon name="cube-outline"></ion-icon></li>
+                  </ul>
+                </div>
+              </div>`;
+            propertyList.appendChild(li);
+          });
         });
 
-        // Populate testimonials
-        const testimonialList = $('#testimonial-list');
-        data.testimonials.forEach(testimonial => {
-          testimonialList.append(`
-            <li>
+      // Fetch testimonials
+      fetch('fetch_testimonials.php')
+        .then(response => response.json())
+        .then(data => {
+          const testimonialList = document.getElementById('testimonial-list');
+          data.forEach(testimonial => {
+            const li = document.createElement('li');
+            li.className = 'testimonial-item';
+            li.innerHTML = `
               <div class="testimonial-card">
-                <h3 class="testimonial-name">${testimonial.name}</h3>
-                <p class="testimonial-text">${testimonial.testimonial}</p>
-              </div>
-            </li>
-          `);
+                <div class="card-content">
+                  <p class="card-text">${testimonial.content}</p>
+                  <div class="card-client">
+                    <div class="client-img"><img src="${testimonial.image}" alt="${testimonial.name}"></div>
+                    <div class="client-info">
+                      <h4 class="h4 client-name">${testimonial.name}</h4>
+                      <p class="client-title">${testimonial.title}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>`;
+            testimonialList.appendChild(li);
+          });
         });
 
-        // Populate blogs
-        const blogList = $('#blog-list');
-        data.blogs.forEach(blog => {
-          blogList.append(`
-            <li>
+      // Fetch blogs
+      fetch('fetch_blogs.php')
+        .then(response => response.json())
+        .then(data => {
+          const blogList = document.getElementById('blog-list');
+          data.forEach(blog => {
+            const li = document.createElement('li');
+            li.className = 'blog-item';
+            li.innerHTML = `
               <div class="blog-card">
-                <img src="${blog.image}" alt="${blog.title}">
-                <h3 class="blog-title">${blog.title}</h3>
-                <p class="blog-content">${blog.content}</p>
-                <a href="blog_details.php?id=${blog.id}" class="blog-link">Read More</a>
-              </div>
-            </li>
-          `);
+                <figure class="card-banner">
+                  <a href="blog-details.html?id=${blog.id}">
+                    <img src="${blog.image}" alt="${blog.title}">
+                  </a>
+                </figure>
+                <div class="card-content">
+                  <h3 class="h3 card-title">
+                    <a href="blog-details.html?id=${blog.id}">${blog.title}</a>
+                  </h3>
+                  <div class="card-meta">
+                    <time datetime="${blog.date}">${blog.date}</time>
+                    <p class="card-author">${blog.author}</p>
+                  </div>
+                </div>
+              </div>`;
+            blogList.appendChild(li);
+          });
         });
-      });
     });
   </script>
-
 </body>
 </html>

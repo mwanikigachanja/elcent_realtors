@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include 'admin/config.php';
 
 $query = "SELECT * FROM testimonials";
 $result = mysqli_query($conn, $query);
