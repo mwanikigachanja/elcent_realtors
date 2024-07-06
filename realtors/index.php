@@ -275,8 +275,11 @@ include 'includes/db.php';
             </ul>
         </div>
     </footer>
+    
+    <a href="#" id="back-to-top" title="Back to top">&uarr;</a>
 
     <!-- Bootstrap JS -->
+    <script src="js/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -296,7 +299,7 @@ include 'includes/db.php';
         });
     </script>
     <!-- Back to Top Button -->
-<a href="#" id="back-to-top" title="Back to top">&uarr;</a>
+
 
 </body>
 </html>
