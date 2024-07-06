@@ -118,21 +118,43 @@ include 'includes/db.php';
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-5">
-        <div class="container">
-            <h2 class="section-title">About Us</h2>
-            <h2 class="h2 section-title">Your Trusted Real Estate Partner</h2>
-        <div class="about-item">
-          <div class="about-item-icon"><ion-icon name="home-outline"></ion-icon></div>
-          <p>We are dedicated to providing you with the best real estate services. Our experienced team is here to help you find your dream home.</p>
+    <!-- About Us Section -->
+<section id="about-us" class="about-us">
+    <div class="container">
+        <div class="section-title">
+            <h2>About Us</h2>
+            <p>Discover more about Elcent Realtors</p>
         </div>
-        <div class="about-item">
-          <div class="about-item-icon"><ion-icon name="business-outline"></ion-icon></div>
-          <p>We have a wide range of properties to suit your needs, whether you are looking for a family home, an investment property, or a commercial space.</p>
+        <div class="about-content">
+            <div class="about-intro">
+                <p>Elcent Realtors is dedicated to providing top-notch real estate services in Kitale and its environs. Our team is committed to helping you find the perfect property that meets your needs and exceeds your expectations.</p>
+            </div>
+            <div class="about-mission-vision">
+                <div class="mission">
+                    <h3>Our Mission</h3>
+                    <p>To offer comprehensive and reliable real estate solutions, ensuring our clients receive the highest level of service and satisfaction.</p>
+                </div>
+                <div class="vision">
+                    <h3>Our Vision</h3>
+                    <p>To be the leading real estate company in Kitale, recognized for our exceptional customer service, integrity, and dedication to excellence.</p>
+                </div>
+            </div>
+            <div class="team">
+                <h3>Meet Our Team</h3>
+                <div class="team-members">
+                    <!-- Example Team Member -->
+                    <div class="team-member">
+                        <img src="path_to_image" alt="Team Member Name">
+                        <h4>Team Member Name</h4>
+                        <p>Position</p>
+                    </div>
+                    <!-- Add more team members as needed -->
+                </div>
+            </div>
         </div>
+    </div>
+</section>
 
-        </div>
-    </section>
 
     <!-- Services Section -->
     <section id="services" class="py-5 bg-light">
