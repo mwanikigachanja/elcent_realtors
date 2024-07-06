@@ -295,5 +295,8 @@ include 'includes/db.php';
             });
         });
     </script>
+    <!-- Back to Top Button -->
+<a href="#" id="back-to-top" title="Back to top">&uarr;</a>
+
 </body>
 </html>
