@@ -11,11 +11,11 @@ include 'includes/db.php';
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="lp_style.css">
     <style>
         /* Add custom styles here */
         .navbar {
-            background-color: #343a40;
+            background-color: #0d0281;
         }
         .navbar-brand, .navbar-nav .nav-link {
             color: #fff;
@@ -59,7 +59,7 @@ include 'includes/db.php';
         .card-text {
             display: none;
             overflow: hidden;
-            max-height: 60px; /* Adjust based on your needs */
+            max-height: 100px; /* Adjust based on your needs */
         }
         .read-more {
             cursor: pointer;
@@ -109,7 +109,16 @@ include 'includes/db.php';
     <section id="about" class="py-5">
         <div class="container">
             <h2 class="section-title">About Us</h2>
-            <p>Your about section content goes here.</p>
+            <h2 class="h2 section-title">Your Trusted Real Estate Partner</h2>
+        <div class="about-item">
+          <div class="about-item-icon"><ion-icon name="home-outline"></ion-icon></div>
+          <p>We are dedicated to providing you with the best real estate services. Our experienced team is here to help you find your dream home.</p>
+        </div>
+        <div class="about-item">
+          <div class="about-item-icon"><ion-icon name="business-outline"></ion-icon></div>
+          <p>We have a wide range of properties to suit your needs, whether you are looking for a family home, an investment property, or a commercial space.</p>
+        </div>
+
         </div>
     </section>
 
