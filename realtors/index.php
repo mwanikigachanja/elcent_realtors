@@ -154,7 +154,7 @@ include 'includes/db.php';
           while ($row = mysqli_fetch_assoc($result)) {
           ?>
           <div class="property-card">
-            <img src="property-images/<?php echo $row['image']; ?>" alt="Property Image">
+            <img src="property-images/<?php echo $row['images']; ?>" alt="Property Image">
             <h3 class="property-title"><?php echo $row['title']; ?></h3>
             <p class="property-price"><?php echo $row['price']; ?></p>
             <p class="property-location"><?php echo $row['location']; ?></p>
@@ -235,6 +235,19 @@ include 'includes/db.php';
 </footer>
 
 <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons.js"></script>
+<script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.stellar.min.js"></script>
+  <script src="js/jquery.countdown.min.js"></script>
+  <script src="js/bootstrap-datepicker.min.js"></script>
+  <script src="js/jquery.easing.1.3.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/jquery.fancybox.min.js"></script>
+  <script src="js/jquery.sticky.js"></script>
 <script src="js/script.js"></script> <!-- Make sure this includes your custom scripts -->
 </body>
 </html>
