@@ -97,3 +97,105 @@
     transform: scale(1.1);
 }
 
+/* About Us Section */
+.about-us {
+    padding: 60px 0;
+    background-color: #f8f9fa;
+}
+
+.about-us .section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.about-us .section-title h2 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #333;
+}
+
+.about-us .section-title p {
+    font-size: 18px;
+    color: #777;
+}
+
+.about-us .about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.about-us .about-intro {
+    margin-bottom: 30px;
+}
+
+.about-us .about-intro p {
+    font-size: 18px;
+    color: #555;
+}
+
+.about-us .about-mission-vision {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+}
+
+.about-us .about-mission-vision .mission,
+.about-us .about-mission-vision .vision {
+    flex: 1;
+    margin: 0 20px;
+}
+
+.about-us .about-mission-vision h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.about-us .about-mission-vision p {
+    font-size: 16px;
+    color: #555;
+}
+
+.about-us .team {
+    margin-top: 40px;
+}
+
+.about-us .team h3 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.about-us .team-members {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.about-us .team-member {
+    width: 200px;
+    text-align: center;
+    margin: 10px;
+}
+
+.about-us .team-member img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.about-us .team-member h4 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.about-us .team-member p {
+    font-size: 16px;
+    color: #777;
+}

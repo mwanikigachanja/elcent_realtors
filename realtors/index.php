@@ -97,7 +97,7 @@ include 'includes/db.php';
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about-us">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
                     <li class="nav-item"><a class="nav-link" href="#properties">Properties</a></li>
                     <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonials</a></li>
