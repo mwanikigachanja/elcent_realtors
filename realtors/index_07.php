@@ -11,7 +11,7 @@ include 'includes/db.php';
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="lp_style.css">
     <style>
         /* Add custom styles here */
         .navbar {
@@ -45,25 +45,6 @@ include 'includes/db.php';
         }
         .card {
             margin: 20px 0;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-        .card img {
-            max-height: 200px;
-            object-fit: cover;
-        }
-        .card-body {
-            flex-grow: 1;
-        }
-        .card-text {
-            display: none;
-            overflow: hidden;
-            max-height: 60px; /* Adjust based on your needs */
-        }
-        .read-more {
-            cursor: pointer;
-            color: blue;
         }
         .footer {
             background-color: #343a40;
@@ -165,9 +146,8 @@ include 'includes/db.php';
                     echo '<img src="images/' . $row['images'] . '" class="card-img-top" alt="' . $row['title'] . '">';
                     echo '<div class="card-body">';
                     echo '<h5 class="card-title">' . $row['title'] . '</h5>';
-                    echo '<p class="card-text">' . substr($row['description'], 0, 100) . '...</p>';
-                    echo '<span class="read-more" data-full-text="' . htmlspecialchars($row['description']) . '">Read More</span>';
-                    echo '<a href="#" class="btn btn-primary mt-3">View Details</a>';
+                    echo '<p class="card-text">' . $row['description'] . '</p>';
+                    echo '<a href="#" class="btn btn-primary">View Details</a>';
                     echo '</div>';
                     echo '</div>';
                     echo '</div>';
@@ -192,8 +172,7 @@ include 'includes/db.php';
                     echo '<img src="images/' . $row['image'] . '" class="card-img-top" alt="' . $row['name'] . '">';
                     echo '<div class="card-body">';
                     echo '<h5 class="card-title">' . $row['name'] . '</h5>';
-                    echo '<p class="card-text">' . substr($row['text'], 0, 100) . '...</p>';
-                    echo '<span class="read-more" data-full-text="' . htmlspecialchars($row['text']) . '">Read More</span>';
+                    echo '<p class="card-text">' . $row['text'] . '</p>';
                     echo '<p class="card-text"><small class="text-muted">' . $row['role'] . '</small></p>';
                     echo '</div>';
                     echo '</div>';
@@ -219,9 +198,8 @@ include 'includes/db.php';
                     echo '<img src="images/' . $row['image'] . '" class="card-img-top" alt="' . $row['title'] . '">';
                     echo '<div class="card-body">';
                     echo '<h5 class="card-title">' . $row['title'] . '</h5>';
-                    echo '<p class="card-text">' . substr($row['excerpt'], 0, 100) . '...</p>';
-                    echo '<span class="read-more" data-full-text="' . htmlspecialchars($row['excerpt']) . '">Read More</span>';
-                    echo '<a href="#" class="btn btn-primary mt-3">Read More</a>';
+                    echo '<p class="card-text">' . $row['excerpt'] . '</p>';
+                    echo '<a href="#" class="btn btn-primary">Read More</a>';
                     echo '</div>';
                     echo '</div>';
                     echo '</div>';
@@ -235,7 +213,7 @@ include 'includes/db.php';
     <section id="contact" class="py-5 bg-light">
         <div class="container">
             <h2 class="section-title">Contact Us</h2>
-            <form action="contact.php" method="post">
+            <form action="contact_process.php" method="POST">
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="name">Name</label>
@@ -271,20 +249,5 @@ include 'includes/db.php';
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- Custom JS -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var readMoreLinks = document.querySelectorAll('.read-more');
-            readMoreLinks.forEach(function (link) {
-                link.addEventListener('click', function () {
-                    var fullText = this.getAttribute('data-full-text');
-                    var cardText = this.previousElementSibling;
-                    cardText.textContent = fullText;
-                    cardText.style.display = 'block';
-                    this.style.display = 'none';
-                });
-            });
-        });
-    </script>
 </body>
 </html>
