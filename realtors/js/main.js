@@ -10,4 +10,14 @@ $(document).ready(function(){
       }
     });
   });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('.menu-outline');
+    const navMenu = document.querySelector('.nav-list');
+
+    menuToggle.addEventListener('click', function() {
+        navMenu.classList.toggle('active');
+    });
+});
+
   

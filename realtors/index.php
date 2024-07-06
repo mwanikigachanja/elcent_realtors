@@ -1,3 +1,7 @@
+<?php
+include 'includes/db.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +19,8 @@
   <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
   <link rel="stylesheet" href="css/aos.css">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="assets/styles.css"> <!-- Link to your new CSS file -->
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="styles.css"> <!-- Link to your new CSS file -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,700|Oswald:400,700" rel="stylesheet">
@@ -80,7 +85,7 @@
       <button class="nav-open-btn" data-nav-open-btn aria-label="Open Menu">
         <ion-icon name="menu-outline"></ion-icon>
       </button>
-      <a href="tel:+254721580625" class="btn btn-primary">0721 580 625</a>
+      <a href="tel:+254717388544" class="btn btn-primary">+254 717 388544</a>
     </div>
   </div>
 </header>
@@ -145,7 +150,7 @@
         <div class="property-item">
           <?php
           $query = "SELECT * FROM properties";
-          $result = mysqli_query($con, $query);
+          $result = mysqli_query($conn, $query);
           while ($row = mysqli_fetch_assoc($result)) {
           ?>
           <div class="property-card">
@@ -167,7 +172,7 @@
         <div class="testimonials-item">
           <?php
           $query = "SELECT * FROM testimonials";
-          $result = mysqli_query($con, $query);
+          $result = mysqli_query($conn, $query);
           while ($row = mysqli_fetch_assoc($result)) {
           ?>
           <div class="testimonials-card">
@@ -187,7 +192,7 @@
         <div class="blog-item">
           <?php
           $query = "SELECT * FROM blogs";
-          $result = mysqli_query($con, $query);
+          $result = mysqli_query($conn, $query);
           while ($row = mysqli_fetch_assoc($result)) {
           ?>
           <div class="blog-card">
@@ -204,25 +209,29 @@
 </main>
 
 <footer class="footer" id="contact">
-  <div class="container">
-    <p class="section-subtitle">Contact Us</p>
-    <h2 class="h2 section-title">Get In Touch</h2>
-    <form action="contact-form-handler.php" method="POST" class="contact-form">
-      <div class="input-group">
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name" required>
-      </div>
-      <div class="input-group">
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email" required>
-      </div>
-      <div class="input-group">
-        <label for="message">Message</label>
-        <textarea name="message" id="message" required></textarea>
-      </div>
-      <button type="submit" class="btn btn-primary">Send Message</button>
-    </form>
-  </div>
+<div class="contact-form">
+        <h2>Contact Us</h2>
+        <form id="contact-form" action="your_form_handler_url" method="POST">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="subject">Subject:</label>
+                <input type="text" id="subject" name="subject" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit">Send Message</button>
+        </form>
+    </div>
+
 </footer>
 
 <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons.js"></script>
