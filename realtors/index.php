@@ -1,3 +1,7 @@
+<?php
+include 'includes/db.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -186,7 +190,7 @@
             <div class="row">
                 <!-- Dynamic blog posts from database -->
                 <?php
-                $query = "SELECT * FROM blog_posts";
+                $query = "SELECT * FROM blogs";
                 $result = mysqli_query($conn, $query);
                 while($row = mysqli_fetch_assoc($result)) {
                     echo '<div class="col-md-4">';
