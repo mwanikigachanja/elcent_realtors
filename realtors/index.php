@@ -21,7 +21,7 @@ include 'includes/db.php';
             color: #fff;
         }
         .hero {
-            background: url('images/hero-bg.jpg') no-repeat center center;
+            background: url('images/elcent home.jpg') no-repeat center center;
             background-size: cover;
             height: 100vh;
             color: #fff;
