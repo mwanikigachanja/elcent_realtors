@@ -11,12 +11,12 @@ $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = mysqli_real_escape_string($link, $_POST['name']);
-    $image = '';
+    $image = NULL;
     $testimonial = mysqli_real_escape_string($link, $_POST['testimonial']);
 
     // Handle image upload
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-        $target_dir = '../images/';
+        $target_dir = 'images/';
         $target_file = $target_dir . basename($_FILES['image']['name']);
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
         
@@ -46,9 +46,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (empty($error)) {
         $query = "INSERT INTO testimonials (name, image, testimonial) 
-                  VALUES ('$name', '$image', '$testimonial')";
+                  VALUES ('$name', ?, '$testimonial')";
         
-        if (mysqli_query($link, $query)) {
+        $stmt = mysqli_prepare($link, $query);
+        mysqli_stmt_bind_param($stmt, 's', $image);
+        
+        if (mysqli_stmt_execute($stmt)) {
             header('Location: manage_testimonials.php');
             exit;
         } else {
@@ -68,15 +71,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <div class="container">
         <h1 class="mt-4">Add New Testimonial</h1>
-        <?php if (isset($error)): ?>
+        <?php if (isset($error) && !empty($error)): ?>
             <div class="alert alert-danger"><?= $error ?></div>
         <?php endif; ?>
-        <form method="post" action="">
+        <form method="post" action="add_testimonial.php" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" class="form-control" id="name" name="name" required>
             </div>
-            <div class="">
+            <div class="form-group">
                 <label for="image">Image</label>
                 <input type="file" class="form-control" id="image" name="image">
             </div>
