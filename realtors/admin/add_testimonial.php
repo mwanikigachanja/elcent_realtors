@@ -10,8 +10,14 @@ if (!isset($_SESSION['loggedin'])) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = mysqli_real_escape_string($link, $_POST['name']);
-    $image = mysqli_real_escape_string($link, $_POST['image']);
+    $image = '';
     $testimonial = mysqli_real_escape_string($link, $_POST['testimonial']);
+
+    // Handle image upload
+    if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+        $image = 'images/' . basename($_FILES['image']['name']);
+        move_uploaded_file($_FILES['image']['tmp_name'], $image);
+    }
     
     $query = "INSERT INTO testimonials (name, image, testimonial) 
               VALUES ('$name', '$testimonial')";
