@@ -91,27 +91,26 @@ $result = mysqli_query($link, $query);
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form method="POST" action="manage_testimonials.php">
-                                <div class="modal-body">
-                                    <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-                                    <div class="form-group">
-                                        <label for="name">Name</label>
-                                        <input type="text" class="form-control" name="name" value="<?php echo htmlspecialchars($row['name']); ?>" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="testimonial">Testimonial</label>
-                                        <textarea class="form-control" name="testimonial" required><?php echo htmlspecialchars($row['testimonial']); ?></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="date">Date</label>
-                                        <input type="date" class="form-control" name="date" value="<?php echo htmlspecialchars($row['date']); ?>" required>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary" name="update">Save changes</button>
-                                </div>
-                            </form>
+                            <form action="add_testimonial.php" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="testimonial" class="form-label">Testimonial</label>
+                        <textarea class="form-control" id="testimonial" name="testimonial" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image</label>
+                        <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Testimonial</button>
+                </div>
+            </form>
                         </div>
                     </div>
                 </div>
