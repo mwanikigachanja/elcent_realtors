@@ -65,6 +65,7 @@ $result = mysqli_query($link, $query);
         <thead>
             <tr>
                 <th>Name</th>
+                <th>Profile Picture</th>
                 <th>Testimonial</th>
                 <th>Date</th>
                 <th>Actions</th>
@@ -74,6 +75,7 @@ $result = mysqli_query($link, $query);
             <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                 <tr>
                     <td><?php echo htmlspecialchars($row['name']); ?></td>
+                    <td><?php echo htmlspecialchars($row['image']);?></td>
                     <td><?php echo htmlspecialchars($row['testimonial']); ?></td>
                     <td><?php echo htmlspecialchars($row['created_at']); ?></td>
                     <td>
