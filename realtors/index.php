@@ -142,18 +142,28 @@ include 'includes/db.php';
             <div class="team">
                 <h3>Meet Our Team</h3>
                 <div class="team-members">
-                    <!-- Example Team Member -->
-                    <div class="team-member">
-                        <img src="path_to_image" alt="Team Member Name">
-                        <h4>Team Member Name</h4>
-                        <p>Position</p>
-                    </div>
-                    <!-- Add more team members as needed -->
+                    <?php
+                    $query = "SELECT name, position, image FROM team_members";
+                    $result = mysqli_query($conn, $query);
+
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo '<div class="team-member">';
+                            echo '<img src="' . $row['image'] . '" alt="' . $row['name'] . '">';
+                            echo '<h4>' . $row['name'] . '</h4>';
+                            echo '<p>' . $row['position'] . '</p>';
+                            echo '</div>';
+                        }
+                    } else {
+                        echo '<p>No team members found.</p>';
+                    }
+                    ?>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
 
 
     <!-- Services Section -->
