@@ -10,9 +10,10 @@ if (!isset($_SESSION['loggedin'])) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = mysqli_real_escape_string($link, $_POST['name']);
+    $image = mysqli_real_escape_string($link, $_POST['image']);
     $testimonial = mysqli_real_escape_string($link, $_POST['testimonial']);
     
-    $query = "INSERT INTO testimonials (name, testimonial) 
+    $query = "INSERT INTO testimonials (name, image, testimonial) 
               VALUES ('$name', '$testimonial')";
     
     if (mysqli_query($link, $query)) {
@@ -41,6 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="">
+                <label for="image">Image</label>
+                <input type="file" class="form-control" id="image" name="image">
             </div>
             <div class="form-group">
                 <label for="testimonial">Testimonial</label>

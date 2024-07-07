@@ -138,10 +138,11 @@ $result = mysqli_query($link, $query);
 if (isset($_POST['update'])) {
     $id = mysqli_real_escape_string($link, $_POST['id']);
     $name = mysqli_real_escape_string($link, $_POST['name']);
+    $image = mysqli_real_escape_string($link, $_POST['image']);
     $testimonial = mysqli_real_escape_string($link, $_POST['testimonial']);
     $date = mysqli_real_escape_string($link, $_POST['date']);
 
-    $update_query = "UPDATE testimonials SET name='$name', testimonial='$testimonial', created_at='$date' WHERE id=$id";
+    $update_query = "UPDATE testimonials SET name='$name', image='$image', testimonial='$testimonial', created_at='$date' WHERE id=$id";
     mysqli_query($link, $update_query);
     header("Location: manage_testimonials.php");
 }
