@@ -168,6 +168,7 @@ include 'includes/db.php';
 
     <!-- Services Section -->
    <!-- Services Section -->
+    <div class="container">
    <div class="services-section text-center">
             <h2 class="mb-4">Our Services</h2>
             <div class="row">
@@ -206,6 +207,7 @@ include 'includes/db.php';
                 </div>
             </div>
         </div>
+    </div>
         <!-- End of Services Section -->
 
     <!-- Properties Section -->
