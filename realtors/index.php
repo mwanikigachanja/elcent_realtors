@@ -26,6 +26,31 @@ include 'includes/db.php';
     <link rel="stylesheet" href="lp_style.css">
     <style>
         /* Add custom styles here */
+        .services-section {
+            padding: 60px 0;
+            background-color: #f9f9f9;
+        }
+        .service-card {
+            border: none;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        .service-icon {
+            font-size: 40px;
+            color: #007bff;
+        }
+        .service-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .service-description {
+            font-size: 16px;
+            color: #6c757d;
+        }
+
         .navbar {
             background-color: #0d0281;
         }
