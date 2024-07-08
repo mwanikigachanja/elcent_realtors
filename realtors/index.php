@@ -167,40 +167,46 @@ include 'includes/db.php';
 
 
     <!-- Services Section -->
-    <section id="services" class="py-5 bg-light">
-        <div class="container">
-            <h2 class="section-title">Our Services</h2>
+   <!-- Services Section -->
+   <div class="services-section text-center">
+            <h2 class="mb-4">Our Services</h2>
             <div class="row">
-                <!-- Service 1 -->
-                <div class="col-md-4">
-                    <div class="card">
+                <div class="col-md-4 mb-4">
+                    <div class="card service-card">
                         <div class="card-body">
-                            <h5 class="card-title">Service 1</h5>
-                            <p class="card-text">Description of Service 1.</p>
+                            <div class="service-icon mb-3">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <div class="service-title">Sale of Property</div>
+                            <p class="service-description">We offer a wide range of properties for sale in prime locations. Our properties are verified and come with all necessary documentation.</p>
                         </div>
                     </div>
                 </div>
-                <!-- Service 2 -->
-                <div class="col-md-4">
-                    <div class="card">
+                <div class="col-md-4 mb-4">
+                    <div class="card service-card">
                         <div class="card-body">
-                            <h5 class="card-title">Service 2</h5>
-                            <p class="card-text">Description of Service 2.</p>
+                            <div class="service-icon mb-3">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <div class="service-title">General Consultancy</div>
+                            <p class="service-description">Our team of experts provides comprehensive consultancy services in real estate. We guide you through the process of buying, selling, and managing properties.</p>
                         </div>
                     </div>
                 </div>
-                <!-- Service 3 -->
-                <div class="col-md-4">
-                    <div class="card">
+                <div class="col-md-4 mb-4">
+                    <div class="card service-card">
                         <div class="card-body">
-                            <h5 class="card-title">Service 3</h5>
-                            <p class="card-text">Description of Service 3.</p>
+                            <div class="service-icon mb-3">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="service-title">Rental of Properties</div>
+                            <p class="service-description">We offer a variety of rental properties to meet your needs. Whether you are looking for residential or commercial properties, we have you covered.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+        <!-- End of Services Section -->
 
     <!-- Properties Section -->
     <section id="properties" class="py-5">
