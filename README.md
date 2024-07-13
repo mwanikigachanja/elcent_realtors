@@ -21,7 +21,7 @@ Welcome to the Elcent Realtors Web Application, a comprehensive real estate plat
 - **APIs:** MPESA for payments, PHPMailer for email notifications
 
 ## Installation
-
+Done
 ### Prerequisites
 
 - Web server (Apache, Nginx, etc.)
