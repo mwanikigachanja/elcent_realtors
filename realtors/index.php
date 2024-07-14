@@ -174,7 +174,7 @@ include 'includes/db.php';
             <div class="row">
                 <!-- Loop through blog posts from the database -->
                 <?php
-                $result = mysqli_query($link, "SELECT * FROM blog ORDER BY created_at DESC LIMIT 3");
+                $result = mysqli_query($link, "SELECT * FROM blogs ORDER BY created_at DESC LIMIT 3");
                 while ($blog = mysqli_fetch_assoc($result)) {
                 ?>
                 <div class="col-md-4">
