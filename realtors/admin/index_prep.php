@@ -1,7 +1,7 @@
+<?php
+include 'includes/db.php';
+?>
 
-### Updated `index.php`:
-
-```php
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -219,20 +219,13 @@
                 </div>
             </div>
         </div>
-   ### Updated `index.php` (continued):
-
-```php
-                    <p><strong>Address:</strong> Ebby Towers, 2nd Floor Room D5, Kenyatta Avenue, Kitale</p>
-                </div>
-            </div>
-        </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer-section bg-dark text-white py-4">
         <div class="container text-center">
             <p>&copy; <?php echo date('Y'); ?> Elcent Realtors. All Rights Reserved.</p>
-            <p>Designed by <a href="https://github.com/mwanikigachanja" class="text-white">Your Name</a></p>
+            <p>Designed by <a href="https://github.com/mwanikigachanja" class="text-white">CMG Technology</a></p>
         </div>
     </footer>
 
