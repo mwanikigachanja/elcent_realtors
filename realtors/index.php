@@ -16,8 +16,8 @@ include 'includes/db.php';
         /* Add custom styles here for the updated design */
         .hero-section {
             position: relative;
-            height: 100vh;
-            background: url('path/to/your/hero-image.jpg') no-repeat center center/cover;
+            height: 50vh;
+            background: url('images/hero.jpg') no-repeat center center/cover;
         }
         .hero-content {
             position: absolute;
@@ -85,7 +85,7 @@ include 'includes/db.php';
                     <p>We are committed to providing the best real estate services in Kitale and beyond. Our experienced team ensures you get the best deals and professional advice.</p>
                 </div>
                 <div class="col-md-6">
-                    <img src="path/to/about-image.jpg" alt="About Us" class="img-fluid">
+                    <img src="images/aboutus.jpg" alt="About Us" class="img-fluid">
                 </div>
             </div>
         </div>
