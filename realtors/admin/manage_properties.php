@@ -196,6 +196,10 @@ $result = mysqli_query($link, $query);
                                         <textarea class="form-control" name="features"><?php echo htmlspecialchars($row['features']); ?></textarea>
                                     </div>
                                     <div class="form-group">
+                                        <label for="images">Status</label>
+                                        <input type="file" class="form-control" name="images" value="<?php echo htmlspecialchars($row['images']); ?>" required>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="status">Status</label>
                                         <select class="form-control" name="status">
                                             <option value="available" <?php if ($row['status'] == 'available') echo 'selected'; ?>>Available</option>

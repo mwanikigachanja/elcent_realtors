@@ -2,29 +2,64 @@
 session_start();
 require 'config.php';
 
-
 if (!isset($_SESSION['loggedin'])) {
     header('Location: login.php');
     exit;
 }
 
+$error = '';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $title = mysqli_real_escape_string($link, $_POST['title']);
-    $description = mysqli_real_escape_string($link, $_POST['description']);
-    $price = mysqli_real_escape_string($link, $_POST['price']);
+    $property_name = mysqli_real_escape_string($link, $_POST['title']);
     $location = mysqli_real_escape_string($link, $_POST['location']);
-    $features = mysqli_real_escape_string($link, $_POST['features']);
-    $images = mysqli_real_escape_string($link, $_POST['images']);
-    $status = mysqli_real_escape_string($link, $_POST['status']);
-    
-    $query = "INSERT INTO properties (title, description, price, location, features, images, status) 
-              VALUES ('$title', '$description', '$price', '$location', '$features', '$images', '$status')";
-    
-    if (mysqli_query($link, $query)) {
-        header('Location: manage_properties.php');
-        exit;
-    } else {
-        $error = "Error adding property: " . mysqli_error($link);
+    $price = mysqli_real_escape_string($link, $_POST['price']);
+    $description = mysqli_real_escape_string($link, $_POST['description']);
+    $image = NULL;
+
+    // Handle image upload
+    if (isset($_FILES['images']) && $_FILES['images']['error'] == 0) {
+        $target_dir = '../images';
+        $target_file = $target_dir . basename($_FILES['images']['name']);
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        
+        // Check if image file is an actual image or fake image
+        $check = getimagesize($_FILES['images']['tmp_name']);
+        if ($check === false) {
+            $error = "File is not an image.";
+        } else {
+            // Check file size (optional, example: 5MB limit)
+            if ($_FILES['image']['size'] > 5000000) {
+                $error = "Sorry, your file is too large.";
+            } else {
+                // Allow certain file formats (optional)
+                $allowed_types = array("jpg", "jpeg", "png", "gif");
+                if (!in_array($imageFileType, $allowed_types)) {
+                    $error = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                } else {
+                    if (move_uploaded_file($_FILES['images']['tmp_name'], $target_file)) {
+                        // Sanitize the file path for database insertion
+                        $image = mysqli_real_escape_string($link, $target_file);
+                    } else {
+                        $error = "Sorry, there was an error uploading your file.";
+                    }
+                }
+            }
+        }
+    }
+
+    if (empty($error)) {
+        $query = "INSERT INTO properties (title, location, price, description, images) 
+                  VALUES ('$property_name', '$location', '$price', '$description', ?)";
+        
+        $stmt = mysqli_prepare($link, $query);
+        mysqli_stmt_bind_param($stmt, 's', $image);
+        
+        if (mysqli_stmt_execute($stmt)) {
+            header('Location: manage_properties.php');
+            exit;
+        } else {
+            $error = "Error adding property: " . mysqli_error($link);
+        }
     }
 }
 ?>
