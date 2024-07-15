@@ -1,5 +1,6 @@
 <?php
 include 'includes/db.php';
+require 'admin/config.php';
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +11,7 @@ include 'includes/db.php';
     <title>Elcent Realtors</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="lp_styles.css">
     <style>
         /* Add custom styles here */
     </style>
@@ -104,14 +105,14 @@ include 'includes/db.php';
             <div class="row">
                 <?php
                 // Fetch properties from database
-                $query = "SELECT name, image, description FROM properties";
+                $query = "SELECT title, images, description FROM properties";
                 $result = mysqli_query($link, $query);
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo "<div class='col-md-4 mb-4'>
                             <div class='card'>
-                                <img src='images/{$row['images']}' alt='{$row['name']}' class='card-img-top'>
+                                <img src='images/{$row['images']}' alt='{$row['title']}' class='card-img-top'>
                                 <div class='card-body'>
-                                    <h5 class='card-title'>{$row['name']}</h5>
+                                    <h5 class='card-title'>{$row['title']}</h5>
                                     <p class='card-text'>{$row['description']}</p>
                                     <a href='property_details.php?id={$row['id']}' class='btn btn-primary'>Read More</a>
                                 </div>
