@@ -105,7 +105,7 @@ require 'admin/config.php';
             <div class="row">
                 <?php
                 // Fetch properties from database
-                $query = "SELECT title, images, description FROM properties";
+                $query = "SELECT id, title, images, description FROM properties";
                 $result = mysqli_query($link, $query);
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo "<div class='col-md-4 mb-4'>
@@ -131,12 +131,12 @@ require 'admin/config.php';
             <div class="row">
                 <?php
                 // Fetch testimonials from database
-                $query = "SELECT name, image, testimonial FROM testimonials";
+                $query = "SELECT id, name, image, testimonial FROM testimonials";
                 $result = mysqli_query($link, $query);
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo "<div class='col-md-4 mb-4'>
                             <div class='card'>
-                                <img src='images/{$row['images']}' alt='{$row['name']}' class='card-img-top'>
+                                <img src='images/{$row['image']}' alt='{$row['name']}' class='card-img-top'>
                                 <div class='card-body'>
                                     <h5 class='card-title'>{$row['name']}</h5>
                                     <p class='card-text'>{$row['testimonial']}</p>
@@ -156,7 +156,7 @@ require 'admin/config.php';
             <div class="row">
                 <?php
                 // Fetch blog posts from database
-                $query = "SELECT title, image, excerpt FROM blogs";
+                $query = "SELECT id, title, image, excerpt FROM blogs";
                 $result = mysqli_query($link, $query);
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo "<div class='col-md-4 mb-4'>
