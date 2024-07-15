@@ -85,6 +85,7 @@ $result = mysqli_query($link, $query);
     <table class="table table-striped">
         <thead>
             <tr>
+                <th></th>
                 <th>Title</th>
                 <th>Description</th>
                 <th>Price</th>
@@ -97,6 +98,7 @@ $result = mysqli_query($link, $query);
         <tbody>
             <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                 <tr>
+                <td><img src="<?= $row['images'] ?>" alt="<?= $row['title'] ?>" width="100"></td>
                     <td><?php echo htmlspecialchars($row['title']); ?></td>
                     <td><?php echo htmlspecialchars($row['description']); ?></td>
                     <td><?php echo htmlspecialchars($row['price']); ?></td>
@@ -196,7 +198,7 @@ $result = mysqli_query($link, $query);
                                         <textarea class="form-control" name="features"><?php echo htmlspecialchars($row['features']); ?></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <label for="images">Status</label>
+                                        <label for="images">Images</label>
                                         <input type="file" class="form-control" name="images" value="<?php echo htmlspecialchars($row['images']); ?>" required>
                                     </div>
                                     <div class="form-group">
@@ -233,25 +235,3 @@ $result = mysqli_query($link, $query);
 </body>
 </html>
 
-<?php
-if (isset($_POST['update'])) {
-    $id = mysqli_real_escape_string($link, $_POST['id']);
-    $title = mysqli_real_escape_string($link, $_POST['title']);
-    $description = mysqli_real_escape_string($link, $_POST['description']);
-    $price = mysqli_real_escape_string($link, $_POST['price']);
-    $location = mysqli_real_escape_string($link, $_POST['location']);
-    $features = mysqli_real_escape_string($link, $_POST['features']);
-    $status = mysqli_real_escape_string($link, $_POST['status']);
-
-    $update_query = "UPDATE properties SET title='$title', description='$description', price='$price', location='$location', features='$features', status='$status' WHERE id=$id";
-    mysqli_query($link, $update_query);
-    header("Location: manage_properties.php");
-}
-
-if (isset($_GET['delete'])) {
-    $id = mysqli_real_escape_string($link, $_GET['delete']);
-    $delete_query = "DELETE FROM properties WHERE id=$id";
-    mysqli_query($link, $delete_query);
-    header("Location: manage_properties.php");
-}
-?>
