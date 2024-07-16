@@ -235,3 +235,72 @@ $result = mysqli_query($link, $query);
 </body>
 </html>
 
+<?php
+session_start();
+require 'config.php';
+
+if (!isset($_SESSION['loggedin'])) {
+    header('Location: login.php');
+    exit;
+}
+
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $query = "SELECT * FROM properties WHERE id = ?";
+    $stmt = mysqli_prepare($link, $query);
+    mysqli_stmt_bind_param($stmt, 'i', $id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $property = mysqli_fetch_assoc($result);
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $id = $_POST['id'];
+    $title = mysqli_real_escape_string($link, $_POST['title']);
+    $description = mysqli_real_escape_string($link, $_POST['description']);
+    $price = mysqli_real_escape_string($link, $_POST['price']);
+    $location = mysqli_real_escape_string($link, $_POST['location']);
+    $image = $property['images'];
+
+    // Handle image upload
+    if (isset($_FILES['images']) && $_FILES['images']['error'] == 0) {
+        $target_dir = '../images/';
+        $target_file = $target_dir . basename($_FILES['images']['name']);
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+        // Check if image file is an actual image or fake image
+        $check = getimagesize($_FILES['images']['tmp_name']);
+        if ($check !== false) {
+            // Check file size (optional, example: 5MB limit)
+            if ($_FILES['images']['size'] <= 5000000) {
+                // Allow certain file formats (optional)
+                $allowed_types = array("jpg", "jpeg", "png", "gif");
+                if (in_array($imageFileType, $allowed_types)) {
+                    if (move_uploaded_file($_FILES['images']['tmp_name'], $target_file)) {
+                        $image = $target_file;
+                    } else {
+                        $error = "Sorry, there was an error uploading your file.";
+                    }
+                } else {
+                    $error = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                }
+            } else {
+                $error = "Sorry, your file is too large.";
+            }
+        } else {
+            $error = "File is not an image.";
+        }
+    }
+
+    $query = "UPDATE properties SET title = ?, description = ?, price = ?, location = ?, images = ? WHERE id = ?";
+    $stmt = mysqli_prepare($link, $query);
+    mysqli_stmt_bind_param($stmt, 'sssssi', $title, $description, $price, $location, $image, $id);
+
+    if (mysqli_stmt_execute($stmt)) {
+        header('Location: manage_properties.php');
+        exit;
+    } else {
+        $error = "Error updating property: " . mysqli_error($link);
+    }
+}
+?>
