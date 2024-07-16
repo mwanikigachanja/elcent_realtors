@@ -33,7 +33,7 @@ if (!$property) {
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-8">
-                <img src="<?php echo $property['images']; ?>" class="img-fluid" alt="<?php echo $property['title']; ?>">
+                <img src="images/<?php echo $property['images']; ?>" class="img-fluid" alt="<?php echo $property['title']; ?>">
                 <h1 class="mt-4"><?php echo $property['title']; ?></h1>
                 <p class="text-muted"><?php echo $property['location']; ?></p>
                 <p><?php echo nl2br($property['description']); ?></p>
