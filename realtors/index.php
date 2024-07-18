@@ -11,6 +11,7 @@ require 'admin/config.php';
     <title>Elcent Realtors</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/svg+xml">
     <link rel="stylesheet" href="lp_styles.css">
     <style>
         /* Add custom styles here */
