@@ -12,8 +12,23 @@ require 'admin/config.php';
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
     <link rel="shortcut icon" href="images/favicon.ico" type="image/svg+xml">
-    <link rel="stylesheet" href="lp_styles.css">
+    <link rel="stylesheet" href="lp_style.css">
     <style>
+        /* Assuming your CSS file is style.css or embedded in the HTML */
+
+header, footer {
+    background-color: #0D0281; /* Apply the new color */
+    color: #ffffff; /* Ensure text is readable */
+}
+
+header a, footer a {
+    color: #ffffff; /* Ensure links are readable */
+}
+
+header a:hover, footer a:hover {
+    color: #cccccc; /* Add a hover effect for links */
+}
+
         /* Add custom styles here */
         .card {
     border: none;
@@ -63,7 +78,7 @@ require 'admin/config.php';
 </head>
 <body>
     <!-- Header -->
-    <header class="bg-dark text-white">
+    <header class="text-white">
         <nav class="navbar navbar-expand-lg navbar-dark container">
             <a class="navbar-brand" href="#">Elcent Realtors</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -221,7 +236,7 @@ require 'admin/config.php';
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-4">
+    <footer class="text-white py-4">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
