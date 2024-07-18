@@ -145,28 +145,28 @@ require 'admin/config.php';
 
     <!-- Properties Section -->
     <section id="properties" class="py-5">
-        <div class="container">
-            <h2 class="text-center mb-4">Our Properties</h2>
-            <div class="row">
-                <?php
-                // Fetch properties from database
-                $query = "SELECT id, title, images, description FROM properties";
-                $result = mysqli_query($link, $query);
-                while ($row = mysqli_fetch_assoc($result)) {
-                    echo "<div class='col-md-4 mb-4'>
-                            <div class='card'>
-                                <img src='images/{$row['images']}' alt='{$row['title']}' class='card-img-top'>
-                                <div class='card-body'>
-                                    <h5 class='card-title'>{$row['title']}</h5>
-                                    <p class='card-text'>{$row['description'],0,100}...</p>
-                                    <a href='property_details.php?id={$row['id']}' class='btn btn-primary'>Read More</a>
-                                </div>
-                            </div>
-                          </div>";
-                }
-                ?>
+    <div class="container">
+    <div class="row">
+        <?php
+        $result = mysqli_query($link, "SELECT * FROM properties");
+        while ($row = mysqli_fetch_assoc($result)) {
+        ?>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="images/<?= $row['images'] ?>" alt="<?= $row['title'] ?>">
+                    <div class="card-body">
+                        <h5 class="card-title"><?= $row['title'] ?></h5>
+                        <p class="card-text"><?= substr($row['description'], 0, 100) ?>...</p>
+                        <a href="property_details.php?id=<?= $row['id'] ?>" class="btn btn-primary read-more">Read More</a>
+                    </div>
+                </div>
             </div>
-        </div>
+        <?php
+        }
+        ?>
+    </div>
+</div>
+
     </section>
 
     <!-- Testimonials Section -->
