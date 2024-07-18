@@ -15,6 +15,50 @@ require 'admin/config.php';
     <link rel="stylesheet" href="lp_styles.css">
     <style>
         /* Add custom styles here */
+        .card {
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.card-text {
+    flex-grow: 1;
+    margin-bottom: 10px;
+}
+
+.card .read-more {
+    align-self: flex-end;
+    margin-top: auto;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 16px rgba(0, 0, 0, 0.2);
+}
+
     </style>
 </head>
 <body>
@@ -114,7 +158,7 @@ require 'admin/config.php';
                                 <img src='images/{$row['images']}' alt='{$row['title']}' class='card-img-top'>
                                 <div class='card-body'>
                                     <h5 class='card-title'>{$row['title']}</h5>
-                                    <p class='card-text'>{$row['description']}</p>
+                                    <p class='card-text'>{$row['description'],0,100}...</p>
                                     <a href='property_details.php?id={$row['id']}' class='btn btn-primary'>Read More</a>
                                 </div>
                             </div>
