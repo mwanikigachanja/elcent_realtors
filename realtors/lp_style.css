@@ -199,3 +199,18 @@
     font-size: 16px;
     color: #777;
 }
+
+
+
+header, footer {
+    background-color: #0D0281; /* Apply the new color */
+    color: #ffffff; /* Ensure text is readable */
+}
+
+header a, footer a {
+    color: #ffffff; /* Ensure links are readable */
+}
+
+header a:hover, footer a:hover {
+    color: #cccccc; /* Add a hover effect for links */
+}
