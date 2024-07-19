@@ -313,51 +313,74 @@ header a:hover, footer a:hover {
 #services {
     padding: 60px 0;
     background: #f8f9fa;
+    font-family: 'Poppins', sans-serif;
 }
 
-#services .card {
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.1);
-    transition: all 0.4s ease-in-out;
+#services .section-title {
+    text-align: center;
+    padding-bottom: 30px;
 }
 
-#services .card:hover {
-    transform: translateY(-10px);
-}
-
-#services .card .card-body {
+#services .icon-box {
     padding: 30px;
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0px 0 25px 0 rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease-in-out;
+    border-radius: 8px;
+    text-align: center;
 }
 
-#services .icon {
+#services .icon-box .icon {
+    margin-bottom: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 80px;
     width: 80px;
-    background: #f8f9fa;
+    background: #0D0281;
     border-radius: 50%;
-    margin: 0 auto 20px;
+    transition: all 0.3s ease-in-out;
+    margin: 0 auto;
 }
 
-#services .icon i {
+#services .icon-box .icon i {
+    color: #fff;
     font-size: 36px;
-    color: #0D0281;
+    transition: all 0.3s ease-in-out;
 }
 
-#services .card-title {
+#services .icon-box h4 {
     font-weight: 700;
     margin: 10px 0 15px 0;
     font-size: 24px;
 }
 
-#services .card-title:hover {
+#services .icon-box h4 a {
+    color: #0D0281;
+    transition: 0.3s;
+}
+
+#services .icon-box h4 a:hover {
     color: #ff4081;
 }
 
-#services .card-text {
+#services .icon-box p {
     font-size: 15px;
     line-height: 24px;
+    margin-bottom: 0;
     color: #777;
+}
+
+#services .icon-box:hover {
+    transform: translateY(-10px);
+}
+
+#services .icon-box:hover .icon {
+    background: #ff4081;
+}
+
+#services .icon-box:hover .icon i {
+    color: #fff;
 }

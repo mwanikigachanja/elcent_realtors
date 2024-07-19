@@ -144,45 +144,34 @@ header a:hover, footer a:hover {
         </div>
 
         <div class="row">
-            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <div class="icon mb-3">
-                            <i class="bx bxl-dribbble" style="font-size: 48px; color: #0D0281;"></i>
-                        </div>
-                        <h4 class="card-title">Property Management</h4>
-                        <p class="card-text">Comprehensive property management solutions to maximize your rental income and minimize the hassles of managing properties. From tenant acquisition to maintenance and rent collection, we handle it all.</p>
-                    </div>
+            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-4" data-aos="zoom-in" data-aos-delay="100">
+                <div class="icon-box">
+                    <div class="icon"><i class="bx bxl-dribbble"></i></div>
+                    <h4 class="title"><a href="">Property Management</a></h4>
+                    <p class="description">Comprehensive property management solutions to maximize your rental income and minimize the hassles of managing properties. From tenant acquisition to maintenance and rent collection, we handle it all.</p>
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <div class="icon mb-3">
-                            <i class="bx bx-file" style="font-size: 48px; color: #0D0281;"></i>
-                        </div>
-                        <h4 class="card-title">Sale of Property</h4>
-                        <p class="card-text">Expert assistance in selling residential, commercial, and land properties. We ensure your property reaches the right buyers at the best price through effective marketing and negotiations.</p>
-                    </div>
+            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-4" data-aos="zoom-in" data-aos-delay="200">
+                <div class="icon-box">
+                    <div class="icon"><i class="bx bx-file"></i></div>
+                    <h4 class="title"><a href="">Sale of Property</a></h4>
+                    <p class="description">Expert assistance in selling residential, commercial, and land properties. We ensure your property reaches the right buyers at the best price through effective marketing and negotiations.</p>
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <div class="icon mb-3">
-                            <i class="bx bx-tachometer" style="font-size: 48px; color: #0D0281;"></i>
-                        </div>
-                        <h4 class="card-title">General Consultancy</h4>
-                        <p class="card-text">Personalized advice and strategies tailored to your real estate needs. From market trends to investment opportunities, we provide comprehensive consultancy services to help you achieve your goals.</p>
-                    </div>
+            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-4" data-aos="zoom-in" data-aos-delay="300">
+                <div class="icon-box">
+                    <div class="icon"><i class="bx bx-tachometer"></i></div>
+                    <h4 class="title"><a href="">General Consultancy</a></h4>
+                    <p class="description">Personalized advice and strategies tailored to your real estate needs. From market trends to investment opportunities, we provide comprehensive consultancy services to help you achieve your goals.</p>
                 </div>
             </div>
         </div>
 
     </div>
 </section>
+
 
 
 
