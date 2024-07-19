@@ -28,21 +28,6 @@
 
 .card {
     margin: 20px 0;
-}
-
-.footer {
-    background-color: #343a40;
-    color: #fff;
-    padding: 20px 0;
-}
-
-.footer a {
-    color: #fff;
-}
-
-/* Custom CSS adjustments */
-.card {
-    margin: 20px 0;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -63,7 +48,7 @@
 .card-text {
     display: none;
     overflow: hidden;
-    max-height: 60px; /* Adjust based on your needs */
+    max-height: 60px;
 }
 
 .read-more {
@@ -200,17 +185,179 @@
     color: #777;
 }
 
-
-
+/* Header and Footer */
 header, footer {
-    background-color: #0D0281; /* Apply the new color */
-    color: #ffffff; /* Ensure text is readable */
+    background-color: #0D0281;
+    color: #ffffff;
 }
 
 header a, footer a {
-    color: #ffffff; /* Ensure links are readable */
+    color: #ffffff;
 }
 
 header a:hover, footer a:hover {
-    color: #cccccc; /* Add a hover effect for links */
+    color: #cccccc;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 1200px) {
+    .hero h1 {
+        font-size: 3.5rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .hero h1 {
+        font-size: 3rem;
+    }
+
+    .hero p {
+        font-size: 1.25rem;
+    }
+
+    .about-us .about-mission-vision {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .about-us .about-mission-vision .mission,
+    .about-us .about-mission-vision .vision {
+        margin: 20px 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .about-us .section-title h2 {
+        font-size: 28px;
+    }
+
+    .about-us .section-title p {
+        font-size: 16px;
+    }
+
+    .about-us .about-intro p {
+        font-size: 16px;
+    }
+
+    .about-us .about-mission-vision h3 {
+        font-size: 20px;
+    }
+
+    .about-us .about-mission-vision p {
+        font-size: 14px;
+    }
+
+    .about-us .team h3 {
+        font-size: 24px;
+    }
+
+    .about-us .team-member h4 {
+        font-size: 16px;
+    }
+
+    .about-us .team-member p {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 0.875rem;
+    }
+
+    .about-us .section-title h2 {
+        font-size: 24px;
+    }
+
+    .about-us .section-title p {
+        font-size: 14px;
+    }
+
+    .about-us .about-intro p {
+        font-size: 14px;
+    }
+
+    .about-us .about-mission-vision h3 {
+        font-size: 18px;
+    }
+
+    .about-us .about-mission-vision p {
+        font-size: 12px;
+    }
+
+    .about-us .team h3 {
+        font-size: 20px;
+    }
+
+    .about-us .team-member h4 {
+        font-size: 14px;
+    }
+
+    .about-us .team-member p {
+        font-size: 12px;
+    }
+}
+
+#services {
+    padding: 60px 0;
+    background: #f8f9fa;
+}
+
+#services .card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease-in-out;
+}
+
+#services .card:hover {
+    transform: translateY(-10px);
+}
+
+#services .card .card-body {
+    padding: 30px;
+}
+
+#services .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    width: 80px;
+    background: #f8f9fa;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+}
+
+#services .icon i {
+    font-size: 36px;
+    color: #0D0281;
+}
+
+#services .card-title {
+    font-weight: 700;
+    margin: 10px 0 15px 0;
+    font-size: 24px;
+}
+
+#services .card-title:hover {
+    color: #ff4081;
+}
+
+#services .card-text {
+    font-size: 15px;
+    line-height: 24px;
+    color: #777;
 }

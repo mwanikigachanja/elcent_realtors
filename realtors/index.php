@@ -135,28 +135,56 @@ header a:hover, footer a:hover {
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="py-5 bg-light">
-        <div class="container">
-            <h2 class="text-center mb-4">Our Services</h2>
-            <div class="row">
-                <div class="col-md-4 text-center">
-                    <i class="fas fa-home fa-3x mb-3"></i>
-                    <h4>Sale of Property</h4>
-                    <p>We offer a wide range of properties for sale, including residential and commercial real estate.</p>
+    <section id="services" class="services section-bg">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+            <h2>Our Services</h2>
+            <p>Explore the range of professional services we offer at Elcent Realtors, designed to meet all your real estate needs.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div class="icon mb-3">
+                            <i class="bx bxl-dribbble" style="font-size: 48px; color: #0D0281;"></i>
+                        </div>
+                        <h4 class="card-title">Property Management</h4>
+                        <p class="card-text">Comprehensive property management solutions to maximize your rental income and minimize the hassles of managing properties. From tenant acquisition to maintenance and rent collection, we handle it all.</p>
+                    </div>
                 </div>
-                <div class="col-md-4 text-center">
-                    <i class="fas fa-handshake fa-3x mb-3"></i>
-                    <h4>General Consultancy</h4>
-                    <p>Our expert consultants provide valuable advice and guidance on all aspects of real estate investment.</p>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div class="icon mb-3">
+                            <i class="bx bx-file" style="font-size: 48px; color: #0D0281;"></i>
+                        </div>
+                        <h4 class="card-title">Sale of Property</h4>
+                        <p class="card-text">Expert assistance in selling residential, commercial, and land properties. We ensure your property reaches the right buyers at the best price through effective marketing and negotiations.</p>
+                    </div>
                 </div>
-                <div class="col-md-4 text-center">
-                    <i class="fas fa-building fa-3x mb-3"></i>
-                    <h4>Rental of Properties</h4>
-                    <p>We offer a variety of rental properties to meet your needs, from apartments to commercial spaces.</p>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div class="icon mb-3">
+                            <i class="bx bx-tachometer" style="font-size: 48px; color: #0D0281;"></i>
+                        </div>
+                        <h4 class="card-title">General Consultancy</h4>
+                        <p class="card-text">Personalized advice and strategies tailored to your real estate needs. From market trends to investment opportunities, we provide comprehensive consultancy services to help you achieve your goals.</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+
+    </div>
+</section>
+
+
 
     <!-- Properties Section -->
     <section id="properties" class="py-5">
