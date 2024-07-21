@@ -236,13 +236,6 @@ $result = mysqli_query($link, $query);
 </html>
 
 <?php
-session_start();
-require 'config.php';
-
-if (!isset($_SESSION['loggedin'])) {
-    header('Location: login.php');
-    exit;
-}
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -260,7 +253,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $description = mysqli_real_escape_string($link, $_POST['description']);
     $price = mysqli_real_escape_string($link, $_POST['price']);
     $location = mysqli_real_escape_string($link, $_POST['location']);
-    $image = $property['images'];
+    $image = NULL;
 
     // Handle image upload
     if (isset($_FILES['images']) && $_FILES['images']['error'] == 0) {

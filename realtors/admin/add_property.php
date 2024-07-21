@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $error = "File is not an image.";
         } else {
             // Check file size (optional, example: 5MB limit)
-            if ($_FILES['image']['size'] > 5000000) {
+            if ($_FILES['images']['size'] > 5000000) {
                 $error = "Sorry, your file is too large.";
             } else {
                 // Allow certain file formats (optional)
