@@ -14,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $location = mysqli_real_escape_string($link, $_POST['location']);
     $price = mysqli_real_escape_string($link, $_POST['price']);
     $description = mysqli_real_escape_string($link, $_POST['description']);
+    $features = mysqli_real_escape_string($link, $_POST['features']);
     $image = NULL;
 
     // Handle image upload
@@ -48,8 +49,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (empty($error)) {
-        $query = "INSERT INTO properties (title, location, price, description, images) 
-                  VALUES ('$property_name', '$location', '$price', '$description', ?)";
+        $query = "INSERT INTO properties (title, location, price, description, images, features) 
+                  VALUES ('$property_name', '$location', '$price', '$description', ?, $features)";
         
         $stmt = mysqli_prepare($link, $query);
         mysqli_stmt_bind_param($stmt, 's', $image);
