@@ -143,3 +143,6 @@ For inquiries, support, or feedback, reach out to us at:
 ---
 
 Thank you for using Elcent Realtors! We hope you have a great experience with our platform.
+
+
+Cross platform magic.
