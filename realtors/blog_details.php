@@ -54,7 +54,7 @@ if (!$blog) {
         </div>
     </div>
 
-    <?php include 'include/footer.php'; ?>
+    <?php include 'includes/footer.php'; ?>
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
