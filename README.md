@@ -1,4 +1,6 @@
 By Charles Mwaniki 
+Fullstack Developer 
+
 # Elcent Realtors Web Application
 
 ## Introduction
