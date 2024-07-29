@@ -115,7 +115,9 @@ header a:hover, footer a:hover {
                 <div class="col-lg-6">
                 <div class="about-content">
             <div class="about-intro">
-                <iframe width="560" height="315" src="https://youtu.be/uVGeUWfQqpQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div id="video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/xLIkHmXM3pk?si=CwzpTVaDhAoX8kKq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
             </div>
         </div>
                 </div>
