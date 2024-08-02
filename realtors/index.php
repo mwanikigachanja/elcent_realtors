@@ -108,8 +108,32 @@ header a:hover, footer a:hover {
         </div>
     </section>
 
-    <!-- About Us Section -->
-    <section id="about" class="py-5">
+    <!-- Properties Section -->
+    <section id="properties" class="py-5">
+    <div class="container">
+    <div class="row">
+        <?php
+        $result = mysqli_query($link, "SELECT * FROM properties");
+        while ($row = mysqli_fetch_assoc($result)) {
+        ?>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="images/<?= $row['images'] ?>" alt="<?= $row['title'] ?>">
+                    <div class="card-body">
+                        <h5 class="card-title"><?= $row['title'] ?></h5>
+                        <p class="card-text"><?= substr($row['description'], 0, 100) ?>...</p>
+                        <a href="property_details.php?id=<?= $row['id'] ?>" class="btn btn-primary read-more">Read More</a>
+                    </div>
+                </div>
+            </div>
+        <?php
+        }
+        ?>
+    </div>
+</div>
+
+ <!-- About Us Section -->
+ <section id="about" class="py-5">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
@@ -177,37 +201,6 @@ header a:hover, footer a:hover {
         </div>
     </div>
 </section>
-
-
-
-
-
-
-
-
-    <!-- Properties Section -->
-    <section id="properties" class="py-5">
-    <div class="container">
-    <div class="row">
-        <?php
-        $result = mysqli_query($link, "SELECT * FROM properties");
-        while ($row = mysqli_fetch_assoc($result)) {
-        ?>
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="images/<?= $row['images'] ?>" alt="<?= $row['title'] ?>">
-                    <div class="card-body">
-                        <h5 class="card-title"><?= $row['title'] ?></h5>
-                        <p class="card-text"><?= substr($row['description'], 0, 100) ?>...</p>
-                        <a href="property_details.php?id=<?= $row['id'] ?>" class="btn btn-primary read-more">Read More</a>
-                    </div>
-                </div>
-            </div>
-        <?php
-        }
-        ?>
-    </div>
-</div>
 
     </section>
 
