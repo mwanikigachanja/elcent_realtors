@@ -148,7 +148,7 @@ header a:hover, footer a:hover {
                 <div class="col-lg-6">
                     <h2>About Us</h2>
                     <p>Elcent Realtors is dedicated to providing exceptional real estate services in Kenya. With a focus on customer satisfaction, we offer a wide range of properties for sale and rent, as well as expert consultancy services. Our team is committed to helping you find your dream home or investment property.</p>
-                    <p><strong>Our Team:</strong></p>
+                    <p><strong>Team Elcent</strong></p>
                     <ul>
                         <?php
                         // Fetch team members from database
