@@ -97,31 +97,16 @@ header a:hover, footer a:hover {
         </nav>
     </header>
 
-    <!-- Hero Section Carousel -->
-<section class="hero-carousel">
-    <div class="carousel-container">
-        <?php
-        // Fetch images from the properties table
-        $sql = "SELECT s_image FROM properties";
-        $result = $conn->query($sql);
-
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                echo '<div class="carousel-slide">
-                        <img src="images/' . $row['s_image'] . '" alt="Property Image">
-                      </div>';
-            }
-        } else {
-            echo "0 results";
-        }
-
-        $conn->close();
-        ?>
-    </div>
-    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-    <a class="next" onclick="plusSlides(1)">&#10095;</a>
-</section>
-
+    <!-- Hero Section -->
+    <section class="hero-section" style="background: url('images/hero.jpg') no-repeat center center/cover; height: 80vh;">
+        <div class="container h-100 d-flex justify-content-center align-items-center text-center">
+            <div class="text-white">
+                <h1>Welcome to Elcent Realtors</h1>
+                <p>Your gateway to the finest properties in Kenya</p>
+                <a href="#properties" class="btn btn-primary">Explore Properties</a>
+            </div>
+        </div>
+    </section>
 
     <!-- Properties Section -->
     <section id="properties" class="py-5">
