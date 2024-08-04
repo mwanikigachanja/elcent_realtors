@@ -108,6 +108,40 @@ header a:hover, footer a:hover {
         </div>
     </section>
 
+    <!-- Hero Section Carousel -->
+<section class="hero-carousel">
+    <div class="carousel-container">
+        <?php
+        // Database connection
+        $conn = new mysqli("your_host", "your_username", "your_password", "your_database");
+
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        // Fetch images from the properties table
+        $sql = "SELECT s_image FROM properties";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                echo '<div class="carousel-slide">
+                        <img src="path/to/images/' . $row['s_image'] . '" alt="Property Image">
+                      </div>';
+            }
+        } else {
+            echo "0 results";
+        }
+
+        $conn->close();
+        ?>
+    </div>
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+</section>
+
+
     <!-- Properties Section -->
     <section id="properties" class="py-5">
     <div class="container">
