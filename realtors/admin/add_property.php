@@ -20,71 +20,71 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Handle image upload
     if (isset($_FILES['images']) && $_FILES['images']['error'] == 0) {
-        $target_dir = '../images';
+        $target_dir = '../images/';
         $target_file = $target_dir . basename($_FILES['images']['name']);
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
         
         // Check if image file is an actual image or fake image
         $check = getimagesize($_FILES['images']['tmp_name']);
-        if ($check === false) {
-            $error = "File is not an image.";
-        } else {
+        if ($check !== false) {
             // Check file size (optional, example: 5MB limit)
-            if ($_FILES['images']['size'] > 5000000) {
-                $error = "Sorry, your file is too large.";
-            } else {
+            if ($_FILES['images']['size'] <= 5000000) {
                 // Allow certain file formats (optional)
                 $allowed_types = array("jpg", "jpeg", "png", "gif");
-                if (!in_array($imageFileType, $allowed_types)) {
-                    $error = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-                } else {
+                if (in_array($imageFileType, $allowed_types)) {
                     if (move_uploaded_file($_FILES['images']['tmp_name'], $target_file)) {
                         // Sanitize the file path for database insertion
                         $image = mysqli_real_escape_string($link, $target_file);
                     } else {
                         $error = "Sorry, there was an error uploading your file.";
                     }
-                }
-            }
-        }
-    }
-
-// Handle simage upload
-if (isset($_FILES['s_images']) && $_FILES['s_images']['error'] == 0) {
-    $target_dir = '../images/';
-    $target_file = $target_dir . basename($_FILES['s_images']['name']);
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
-    // Check if image file is an actual image or fake image
-    $check = getimagesize($_FILES['s_images']['tmp_name']);
-    if ($check !== false) {
-        // Check file size (optional, example: 5MB limit)
-        if ($_FILES['s_images']['size'] <= 5000000) {
-            // Allow certain file formats (optional)
-            $allowed_types = array("jpg", "jpeg", "png", "gif");
-            if (in_array($imageFileType, $allowed_types)) {
-                if (move_uploaded_file($_FILES['s_images']['tmp_name'], $target_file)) {
-                    $simage = $target_file;
                 } else {
-                    $error = "Sorry, there was an error uploading your file.";
+                    $error = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
                 }
             } else {
-                $error = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                $error = "Sorry, your file is too large.";
             }
         } else {
-            $error = "Sorry, your file is too large.";
+            $error = "File is not an image.";
         }
-    } else {
-        $error = "File is not an image.";
     }
-}
+
+    // Handle s_image upload
+    if (isset($_FILES['s_image']) && $_FILES['s_image']['error'] == 0) {
+        $target_dir = '../images/';
+        $target_file = $target_dir . basename($_FILES['s_image']['name']);
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+        // Check if image file is an actual image or fake image
+        $check = getimagesize($_FILES['s_image']['tmp_name']);
+        if ($check !== false) {
+            // Check file size (optional, example: 5MB limit)
+            if ($_FILES['s_image']['size'] <= 5000000) {
+                // Allow certain file formats (optional)
+                $allowed_types = array("jpg", "jpeg", "png", "gif");
+                if (in_array($imageFileType, $allowed_types)) {
+                    if (move_uploaded_file($_FILES['s_image']['tmp_name'], $target_file)) {
+                        $simage = mysqli_real_escape_string($link, $target_file);
+                    } else {
+                        $error = "Sorry, there was an error uploading your file.";
+                    }
+                } else {
+                    $error = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                }
+            } else {
+                $error = "Sorry, your file is too large.";
+            }
+        } else {
+            $error = "File is not an image.";
+        }
+    }
 
     if (empty($error)) {
-        $query = "INSERT INTO properties (title, location, price, description, images, s_images, features) 
-                  VALUES ('$property_name', '$location', '$price', '$description', ?, ?, $features)";
+        $query = "INSERT INTO properties (title, location, price, description, images, s_image, features) 
+                  VALUES (?, ?, ?, ?, ?, ?, ?)";
         
         $stmt = mysqli_prepare($link, $query);
-        mysqli_stmt_bind_param($stmt, 's', $image, $simage);
+        mysqli_stmt_bind_param($stmt, 'sssssss', $property_name, $location, $price, $description, $image, $simage, $features);
         
         if (mysqli_stmt_execute($stmt)) {
             header('Location: manage_properties.php');
@@ -95,6 +95,7 @@ if (isset($_FILES['s_images']) && $_FILES['s_images']['error'] == 0) {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -147,7 +148,7 @@ if (isset($_FILES['s_images']) && $_FILES['s_images']['error'] == 0) {
                             </div>
                             <div class="form-group">
                                 <label for="images">Slider Images</label>
-                                <input type="file" class="form-control" id="s_images" name="s_images">
+                                <input type="file" class="form-control" id="s_image" name="s_image">
                             </div>
                             <button type="submit" class="btn btn-primary">Add Property</button>
                         </form>

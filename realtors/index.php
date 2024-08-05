@@ -115,7 +115,6 @@ header a:hover, footer a:hover {
             echo "0 results";
         }
 
-        $conn->close();
         ?>
     </div>
     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>

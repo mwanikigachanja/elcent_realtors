@@ -7,6 +7,19 @@ if (!isset($_SESSION['loggedin'])) {
     exit();
 }
 
+// Handle delete action
+if (isset($_GET['delete'])) {
+    $property_id = intval($_GET['delete']);
+    $query = "DELETE FROM properties WHERE id = ?";
+    $stmt = mysqli_prepare($link, $query);
+    mysqli_stmt_bind_param($stmt, 'i', $property_id);
+    if (mysqli_stmt_execute($stmt)) {
+        $message = "Property deleted successfully.";
+    } else {
+        $error = "Error deleting property: " . mysqli_error($link);
+    }
+}
+
 // Fetch properties from the database
 $query = "SELECT * FROM properties";
 $result = mysqli_query($link, $query);
@@ -79,6 +92,12 @@ $result = mysqli_query($link, $query);
 </nav>
 <div class="container mt-5">
     <h1 class="mb-4">Manage Properties</h1>
+    <?php if (!empty($message)): ?>
+        <p class="success"><?php echo $message; ?></p>
+    <?php endif; ?>
+    <?php if (!empty($error)): ?>
+        <p class="error"><?php echo $error; ?></p>
+    <?php endif; ?>
     <button type="button" class="btn btn-custom" data-toggle="modal" data-target="#addPropertyModal">
             Add New Property
         </button>
@@ -99,7 +118,7 @@ $result = mysqli_query($link, $query);
             <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                 <tr>
                 <td><img src="<?= $row['images'] ?>" alt="<?= $row['title'] ?>" width="100px"></td>
-                <td><img src="<?= $row['s_images']?>" alt="<?= $row['title']?>" width="100px"></td>
+                <td><img src="<?= $row['s_image']?>" alt="<?= $row['title']?>" width="100px"></td>
                     <td><?php echo htmlspecialchars($row['title']); ?></td>
                     <td><?php echo htmlspecialchars($row['description']); ?></td>
                     <td><?php echo htmlspecialchars($row['price']); ?></td>
@@ -151,7 +170,7 @@ $result = mysqli_query($link, $query);
                         </div>
                         <div class="form-group">
                             <label for="images">Slider Images</label>
-                            <input type="file" class="form-control-file" id="s_images" name="s_images">
+                            <input type="file" class="form-control-file" id="s_image" name="s_image">
                         </div>
                         <div class="form-group">
                             <label for="status">Status</label>
@@ -209,7 +228,7 @@ $result = mysqli_query($link, $query);
                                     </div>
                                     <div class="form-group">
                                         <label for="images">Slider Image</label>
-                                        <input type="file" class="form-control" name="s_images" value="<?php echo htmlspecialchars($row['s_images']); ?>" required>
+                                        <input type="file" class="form-control" name="s_image" value="<?php echo htmlspecialchars($row['s_image']); ?>" required>
                                     </div>
 
                                     <div class="form-group">
@@ -264,8 +283,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $price = mysqli_real_escape_string($link, $_POST['price']);
     $location = mysqli_real_escape_string($link, $_POST['location']);
     $image = $property['images'];
-    //$simage = mysqli_real_escape_string($link, $_POST['s_images']);
-    $simage = $property['s_images'];
+    //$simage = mysqli_real_escape_string($link, $_POST['s_image']);
+    $simage = $property['s_image'];
 
     // Handle image upload
     if (isset($_FILES['images']) && $_FILES['images']['error'] == 0) {
@@ -298,20 +317,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Handle simage upload
-    if (isset($_FILES['s_images']) && $_FILES['s_images']['error'] == 0) {
+    if (isset($_FILES['s_image']) && $_FILES['s_image']['error'] == 0) {
         $target_dir = '../images/';
-        $target_file = $target_dir . basename($_FILES['s_images']['name']);
+        $target_file = $target_dir . basename($_FILES['s_image']['name']);
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
         // Check if image file is an actual image or fake image
-        $check = getimagesize($_FILES['s_images']['tmp_name']);
+        $check = getimagesize($_FILES['s_image']['tmp_name']);
         if ($check !== false) {
             // Check file size (optional, example: 5MB limit)
-            if ($_FILES['s_images']['size'] <= 5000000) {
+            if ($_FILES['s_image']['size'] <= 5000000) {
                 // Allow certain file formats (optional)
                 $allowed_types = array("jpg", "jpeg", "png", "gif");
                 if (in_array($imageFileType, $allowed_types)) {
-                    if (move_uploaded_file($_FILES['s_images']['tmp_name'], $target_file)) {
+                    if (move_uploaded_file($_FILES['s_image']['tmp_name'], $target_file)) {
                         $simage = $target_file;
                     } else {
                         $error = "Sorry, there was an error uploading your file.";
@@ -327,7 +346,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    $query = "UPDATE properties SET title = ?, description = ?, price = ?, location = ?, features = ?, images = ?, s_images = ?, status = ?, WHERE id = ?";
+    $query = "UPDATE properties SET title = ?, description = ?, price = ?, location = ?, features = ?, images = ?, s_image = ?, status = ?, WHERE id = ?";
     $stmt = mysqli_prepare($link, $query);
     mysqli_stmt_bind_param($stmt, 'ssssssi', $title, $description, $price, $location, $image, $simage, $id);
 
