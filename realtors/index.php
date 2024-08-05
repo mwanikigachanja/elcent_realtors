@@ -102,14 +102,16 @@ header a:hover, footer a:hover {
     <div class="carousel-container">
         <?php
         // Fetch images from the properties table
-        $sql = "SELECT s_image FROM properties";
+        $sql = "SELECT s_image FROM properties where s_image IS NOT NULL AND id >= 1";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                echo '<div class="carousel-slide">
-                        <img src="images/' . $row['s_image'] . '" alt="Property Image">
-                      </div>';
+                ?>
+                <div class="carousel-slide">
+                        <img src="images/<?= $row['s_image'] ?>" alt="Property Image">
+                      </div>
+                <?php
             }
         } else {
             echo "0 results";
@@ -135,7 +137,7 @@ header a:hover, footer a:hover {
                     <img src="images/<?= $row['images'] ?>" alt="<?= $row['title'] ?>">
                     <div class="card-body">
                         <h5 class="card-title"><?= $row['title'] ?></h5>
-                        <p class="card-text"><?= substr($row['description'], 0, 100) ?>...</p>
+                        <p class="card-text"><?= substr($row['description'], 0, 200) ?>...</p>
                         <a href="property_details.php?id=<?= $row['id'] ?>" class="btn btn-primary read-more">Read More</a>
                     </div>
                 </div>
