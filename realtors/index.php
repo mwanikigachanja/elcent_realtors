@@ -13,6 +13,8 @@ require 'admin/config.php';
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
     <link rel="shortcut icon" href="images/favicon.ico" type="image/svg+xml">
     <link rel="stylesheet" href="lp_style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
     <style>
         /* Assuming your CSS file is style.css or embedded in the HTML */
 
@@ -108,7 +110,7 @@ header a:hover, footer a:hover {
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 ?>
-                <div class="carousel-slide">
+                <div class="carousel-slide" style="width: fit-content;">
                         <img src="images/<?= $row['s_image'] ?>" alt="Property Image">
                       </div>
                 <?php
@@ -303,10 +305,27 @@ header a:hover, footer a:hover {
     <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
 
     <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/yyb+G6loCw3r7b3zZ0U6FlNkmd+cOQfQ6U3Qa4" crossorigin="anonymous"></script>
+    <!-- Slick Carousel CDN -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.carousel-container').slick({
+                infinite: true,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 2000,
+                arrows: true,
+                dots: true
+            });
+        });
+    </script>
     <script src="js/carousel.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="js/script.js"></script>
+    
 </body>
 </html>
