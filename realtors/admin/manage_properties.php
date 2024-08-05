@@ -1,6 +1,5 @@
 <?php
 session_start();
-ob_start();  // Start output buffering
 include("config.php");
 
 if (!isset($_SESSION['loggedin'])) {
@@ -11,68 +10,6 @@ if (!isset($_SESSION['loggedin'])) {
 // Fetch properties from the database
 $query = "SELECT * FROM properties";
 $result = mysqli_query($link, $query);
-
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $query = "SELECT * FROM properties WHERE id = ?";
-    $stmt = mysqli_prepare($link, $query);
-    mysqli_stmt_bind_param($stmt, 'i', $id);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    $property = mysqli_fetch_assoc($result);
-}
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $id = $_POST['id'];
-    $title = mysqli_real_escape_string($link, $_POST['title']);
-    $description = mysqli_real_escape_string($link, $_POST['description']);
-    $price = mysqli_real_escape_string($link, $_POST['price']);
-    $location = mysqli_real_escape_string($link, $_POST['location']);
-    $image = NULL;
-
-    // Handle image upload
-    if (isset($_FILES['images']) && $_FILES['images']['error'] == 0) {
-        $target_dir = '../images/';
-        $target_file = $target_dir . basename($_FILES['images']['name']);
-        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
-        // Check if image file is an actual image or fake image
-        $check = getimagesize($_FILES['images']['tmp_name']);
-        if ($check !== false) {
-            // Check file size (optional, example: 5MB limit)
-            if ($_FILES['images']['size'] <= 5000000) {
-                // Allow certain file formats (optional)
-                $allowed_types = array("jpg", "jpeg", "png", "gif");
-                if (in_array($imageFileType, $allowed_types)) {
-                    if (move_uploaded_file($_FILES['images']['tmp_name'], $target_file)) {
-                        $image = $target_file;
-                    } else {
-                        $error = "Sorry, there was an error uploading your file.";
-                    }
-                } else {
-                    $error = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-                }
-            } else {
-                $error = "Sorry, your file is too large.";
-            }
-        } else {
-            $error = "File is not an image.";
-        }
-    }
-
-    $query = "UPDATE properties SET title = ?, description = ?, price = ?, location = ?, images = ?, features = ? WHERE id = ?";
-    $stmt = mysqli_prepare($link, $query);
-    mysqli_stmt_bind_param($stmt, 'ssssssi', $title, $description, $price, $location, $image, $features, $id);
-
-    if (mysqli_stmt_execute($stmt)) {
-        header('Location: manage_properties.php');
-        exit;
-    } else {
-        $error = "Error updating property: " . mysqli_error($link);
-    }
-}
-
-ob_end_flush();  // End output buffering
 ?>
 
 <!DOCTYPE html>
@@ -161,12 +98,14 @@ ob_end_flush();  // End output buffering
         <tbody>
             <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                 <tr>
-                <td><img src="<?= $row['images'] ?>" alt="<?= $row['title'] ?>" width="100"></td>
+                <td><img src="<?= $row['images'] ?>" alt="<?= $row['title'] ?>" width="100px"></td>
+                <td><img src="<?= $row['s_images']?>" alt="<?= $row['title']?>" width="100px"></td>
                     <td><?php echo htmlspecialchars($row['title']); ?></td>
                     <td><?php echo htmlspecialchars($row['description']); ?></td>
                     <td><?php echo htmlspecialchars($row['price']); ?></td>
                     <td><?php echo htmlspecialchars($row['location']); ?></td>
                     <td><?php echo htmlspecialchars($row['features']); ?></td>
+                    <td><?php echo htmlspecialchars($row['status']); ?></td>
                     <td><?php echo htmlspecialchars($row['status']); ?></td>
                     <td>
                         <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal<?php echo $row['id']; ?>">Edit</button>
@@ -209,6 +148,10 @@ ob_end_flush();  // End output buffering
                         <div class="form-group">
                             <label for="images">Images</label>
                             <input type="file" class="form-control-file" id="images" name="images">
+                        </div>
+                        <div class="form-group">
+                            <label for="images">Slider Images</label>
+                            <input type="file" class="form-control-file" id="s_images" name="s_images">
                         </div>
                         <div class="form-group">
                             <label for="status">Status</label>
@@ -265,6 +208,11 @@ ob_end_flush();  // End output buffering
                                         <input type="file" class="form-control" name="images" value="<?php echo htmlspecialchars($row['images']); ?>" required>
                                     </div>
                                     <div class="form-group">
+                                        <label for="images">Slider Image</label>
+                                        <input type="file" class="form-control" name="s_images" value="<?php echo htmlspecialchars($row['s_images']); ?>" required>
+                                    </div>
+
+                                    <div class="form-group">
                                         <label for="status">Status</label>
                                         <select class="form-control" name="status">
                                             <option value="available" <?php if ($row['status'] == 'available') echo 'selected'; ?>>Available</option>
@@ -297,3 +245,97 @@ ob_end_flush();  // End output buffering
 </script>
 </body>
 </html>
+
+<?php
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $query = "SELECT * FROM properties WHERE id = ?";
+    $stmt = mysqli_prepare($link, $query);
+    mysqli_stmt_bind_param($stmt, 'i', $id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $property = mysqli_fetch_assoc($result);
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $id = $_POST['id'];
+    $title = mysqli_real_escape_string($link, $_POST['title']);
+    $description = mysqli_real_escape_string($link, $_POST['description']);
+    $price = mysqli_real_escape_string($link, $_POST['price']);
+    $location = mysqli_real_escape_string($link, $_POST['location']);
+    $image = $property['images'];
+    //$simage = mysqli_real_escape_string($link, $_POST['s_images']);
+    $simage = $property['s_images'];
+
+    // Handle image upload
+    if (isset($_FILES['images']) && $_FILES['images']['error'] == 0) {
+        $target_dir = '../images/';
+        $target_file = $target_dir . basename($_FILES['images']['name']);
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+        // Check if image file is an actual image or fake image
+        $check = getimagesize($_FILES['images']['tmp_name']);
+        if ($check !== false) {
+            // Check file size (optional, example: 5MB limit)
+            if ($_FILES['images']['size'] <= 5000000) {
+                // Allow certain file formats (optional)
+                $allowed_types = array("jpg", "jpeg", "png", "gif");
+                if (in_array($imageFileType, $allowed_types)) {
+                    if (move_uploaded_file($_FILES['images']['tmp_name'], $target_file)) {
+                        $image = $target_file;
+                    } else {
+                        $error = "Sorry, there was an error uploading your file.";
+                    }
+                } else {
+                    $error = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                }
+            } else {
+                $error = "Sorry, your file is too large.";
+            }
+        } else {
+            $error = "File is not an image.";
+        }
+    }
+
+    // Handle simage upload
+    if (isset($_FILES['s_images']) && $_FILES['s_images']['error'] == 0) {
+        $target_dir = '../images/';
+        $target_file = $target_dir . basename($_FILES['s_images']['name']);
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+        // Check if image file is an actual image or fake image
+        $check = getimagesize($_FILES['s_images']['tmp_name']);
+        if ($check !== false) {
+            // Check file size (optional, example: 5MB limit)
+            if ($_FILES['s_images']['size'] <= 5000000) {
+                // Allow certain file formats (optional)
+                $allowed_types = array("jpg", "jpeg", "png", "gif");
+                if (in_array($imageFileType, $allowed_types)) {
+                    if (move_uploaded_file($_FILES['s_images']['tmp_name'], $target_file)) {
+                        $simage = $target_file;
+                    } else {
+                        $error = "Sorry, there was an error uploading your file.";
+                    }
+                } else {
+                    $error = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                }
+            } else {
+                $error = "Sorry, your file is too large.";
+            }
+        } else {
+            $error = "File is not an image.";
+        }
+    }
+
+    $query = "UPDATE properties SET title = ?, description = ?, price = ?, location = ?, features = ?, images = ?, s_images = ?, status = ?, WHERE id = ?";
+    $stmt = mysqli_prepare($link, $query);
+    mysqli_stmt_bind_param($stmt, 'ssssssi', $title, $description, $price, $location, $image, $simage, $id);
+
+    if (mysqli_stmt_execute($stmt)) {
+        header('Location: manage_properties.php');
+        exit;
+    } else {
+        $error = "Error updating property: " . mysqli_error($link);
+    }
+}
+?>
