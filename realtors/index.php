@@ -110,7 +110,7 @@ header a:hover, footer a:hover {
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 ?>
-                <div class="carousel-slide" style="width: fit-content;">
+                <div class="carousel-slide" style="width: 600px;">
                         <img src="images/<?= $row['s_image'] ?>" alt="Property Image">
                       </div>
                 <?php
