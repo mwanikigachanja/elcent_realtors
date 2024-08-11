@@ -304,7 +304,11 @@ header a:hover, footer a:hover {
     <!-- Back to Top Button -->
     <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
 
-    <!-- Scripts -->
+    <!-- Scripts 
+    Slides - work just fine
+    Carousel - in perfect condition 
+    -->
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/yyb+G6loCw3r7b3zZ0U6FlNkmd+cOQfQ6U3Qa4" crossorigin="anonymous"></script>
     <!-- Slick Carousel CDN -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
