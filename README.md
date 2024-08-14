@@ -2,7 +2,7 @@
 
 # More coming
 
-Fullstack Developer 
+Fullstack Developer - in power
 
 # Elcent Realtors Web Application
 
